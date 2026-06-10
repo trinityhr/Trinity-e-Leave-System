@@ -424,7 +424,16 @@ async function sendLineNotify(leave){
   const token=getSetting('lineToken');
   if(!token) return;
   const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
-  const msg=`\n🔔 มีใบลาใหม่!\n👤 ${leave.name} (${leave.dept})\n📋 ${typeLabel[leave.type]||leave.type}\n📅 ${formatDate(leave.start)}${leave.start!==leave.end?' – '+formatDate(leave.end):''} (${leave.days} วัน)\n📝 ${leave.reason}`;
+  const siteUrl='https://trinityhr.github.io/Trinity-e-Leave-System/';
+  const msg=`
+🔔 มีใบลาใหม่!
+👤 ${leave.name} (${leave.dept})
+📋 ${typeLabel[leave.type]||leave.type}
+📅 ${formatDate(leave.start)}${leave.start!==leave.end?' – '+formatDate(leave.end):''} (${leave.days} วัน)
+📝 ${leave.reason}
+
+👉 กดอนุมัติได้ที่:
+${siteUrl}`;
   try{
     await fetch('https://notify-api.line.me/api/notify',{
       method:'POST',
