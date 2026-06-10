@@ -102,6 +102,8 @@ tr:hover td{background:var(--gray-50);}
   #printArea, #printArea * { visibility: visible; }
   #printArea { position: fixed; left: 0; top: 0; width: 100%; font-size: 16pt; }
   nav, .toast { display: none !important; }
+  @page { margin: 12mm; size: A4; margin-top: 8mm; margin-bottom: 8mm; }
+  head, header, footer { display: none !important; }
 }
 #printArea { display: none; }
 .print-form { font-family: 'Sarabun', sans-serif; font-size: 16px; max-width: 720px; margin: 0 auto; padding: 20px; color: #000; }
@@ -614,7 +616,9 @@ function formatDateFull(d){
 // LOCK
 function requireAdmin(page,e){
   const pw=getSetting('adminPw');
-  if(!pw||adminUnlocked){ showPage(page,e); return; }
+  if(!pw){ showPage(page,e); return; }
+  // settings always requires password, admin only first time
+  if(page!=='settings' && adminUnlocked){ showPage(page,e); return; }
   pendingPage=page;
   document.getElementById('pwInput').value='';
   document.getElementById('pwError').style.display='none';
