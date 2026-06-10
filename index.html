@@ -337,6 +337,18 @@ window.addEventListener('load',()=>{
   if(!getSetting('ejService')) setSetting('ejService','service_0v5k41g');
   if(!getSetting('ejTemplate')) setSetting('ejTemplate','template_rz3u47k');
   if(!getSetting('ejKey')) setSetting('ejKey','qr4mio3xy2zs86P7s');
+  // auto navigate from email link
+  if(window.location.hash==='#admin'){
+    const pw=getSetting('adminPw');
+    if(!pw){ showPageDirect('admin'); }
+    else {
+      pendingPage='admin';
+      document.getElementById('pwInput').value='';
+      document.getElementById('pwError').style.display='none';
+      document.getElementById('lockScreen').classList.remove('hidden');
+      setTimeout(()=>document.getElementById('pwInput').focus(),300);
+    }
+  }
 });
 
 // FIREBASE
@@ -492,7 +504,7 @@ function renderAdmin(leaves){
 async function setStatus(id,status){
   await fbUpdate(`leaves/${id}`,{status});
   const leave=allLeaves.find(l=>l.id===id);
-  if(leave) sendEmployeeEmail(leave,status);
+  if(leave && leave.email) sendEmployeeEmail(leave,status); // แจ้งแค่พนักงาน
   showToast(status==='approved'?'อนุมัติเรียบร้อย ✅':'ปฏิเสธใบลาแล้ว',status==='approved'?'success':'error');
   loadLeaves();
 }
@@ -705,6 +717,14 @@ function showPage(p,e){
 }
 
 // HELPERS
+function showPageDirect(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  // highlight correct nav tab
+  const tabs=document.querySelectorAll('.nav-tab');
+  tabs.forEach(t=>{ if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+p+"'")) t.classList.add('active'); });
+}
 function formatDate(d){
   if(!d) return'';
   const[y,m,day]=d.split('-');
