@@ -6,17 +6,7 @@
 <title>ระบบลางาน</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
-  :root {
-    --brand:#2563EB;--brand-light:#EFF6FF;--brand-dark:#1D4ED8;
-    --success:#059669;--success-light:#ECFDF5;
-    --danger:#DC2626;--danger-light:#FEF2F2;
-    --warn:#D97706;--warn-light:#FFFBEB;
-    --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
-    --gray-400:#9CA3AF;--gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
-    --radius:10px;
-    --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
-    --shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
-  }
+  :root{--brand:#2563EB;--brand-light:#EFF6FF;--brand-dark:#1D4ED8;--success:#059669;--success-light:#ECFDF5;--danger:#DC2626;--danger-light:#FEF2F2;--warn:#D97706;--warn-light:#FFFBEB;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;--gray-400:#9CA3AF;--gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;--radius:10px;--shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);--shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Sarabun',sans-serif;background:var(--gray-50);color:var(--gray-900);font-size:15px;line-height:1.6;}
   nav{background:#fff;border-bottom:1px solid var(--gray-200);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow);}
@@ -83,13 +73,9 @@
   .stat-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);}
   .stat-num{font-size:26px;font-weight:700;}
   .stat-label{font-size:12px;color:var(--gray-500);font-weight:500;}
-  /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:200;}
   .modal-overlay.hidden{display:none;}
   .modal{background:#fff;border-radius:14px;padding:32px;width:90%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.15);}
-  .modal h2{font-size:20px;font-weight:700;margin-bottom:8px;}
-  .modal p{font-size:13px;color:var(--gray-500);margin-bottom:20px;}
-  /* SETTINGS PAGE */
   .settings-section{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow);}
   .settings-section h3{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
   .settings-section .desc{font-size:12px;color:var(--gray-500);margin-bottom:16px;}
@@ -97,7 +83,6 @@
   .info-box a{color:var(--brand);font-weight:600;}
   .page{display:none;}
   .page.active{display:block;}
-  /* LOCK SCREEN */
   .lock-screen{position:fixed;inset:0;background:var(--gray-50);display:flex;align-items:center;justify-content:center;z-index:150;}
   .lock-screen.hidden{display:none;}
   .lock-card{background:#fff;border-radius:14px;padding:36px;width:90%;max-width:360px;box-shadow:0 8px 32px rgba(0,0,0,.12);text-align:center;}
@@ -105,18 +90,11 @@
   .lock-card h2{font-size:18px;font-weight:700;margin-bottom:6px;}
   .lock-card p{font-size:13px;color:var(--gray-500);margin-bottom:20px;}
   .lock-card input{text-align:center;letter-spacing:4px;font-size:20px;font-weight:700;}
-  @media(max-width:600px){
-    .form-grid{grid-template-columns:1fr;}
-    .stats-row{grid-template-columns:1fr 1fr;}
-    .nav-tabs{gap:2px;}
-    .nav-tab{padding:5px 8px;font-size:12px;}
-    .cal-cell{min-height:52px;}
-  }
+  @media(max-width:600px){.form-grid{grid-template-columns:1fr;}.stats-row{grid-template-columns:1fr 1fr;}.nav-tabs{gap:2px;}.nav-tab{padding:5px 8px;font-size:12px;}.cal-cell{min-height:52px;}}
 </style>
 </head>
 <body>
 
-<!-- LOCK SCREEN (Admin) -->
 <div class="lock-screen hidden" id="lockScreen">
   <div class="lock-card">
     <div class="lock-icon">🔐</div>
@@ -131,7 +109,6 @@
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-brand">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -147,231 +124,151 @@
 </nav>
 
 <main>
-
-<!-- PAGE: FORM -->
 <div class="page active" id="page-form">
   <div class="section-title">ยื่นใบลา</div>
   <div class="section-sub">กรอกข้อมูลให้ครบถ้วน ระบบจะแจ้งผู้มีอำนาจอนุมัติอัตโนมัติ</div>
   <div class="card">
     <div class="form-grid">
-      <div class="form-group">
-        <label>ชื่อ-นามสกุล *</label>
-        <input type="text" id="f_name" placeholder="เช่น สมชาย ใจดี">
+      <div class="form-group"><label>ชื่อ-นามสกุล *</label><input type="text" id="f_name" placeholder="เช่น สมชาย ใจดี"></div>
+      <div class="form-group"><label>แผนก *</label><input type="text" id="f_dept" placeholder="เช่น บัญชี, IT, HR"></div>
+      <div class="form-group"><label>อีเมลพนักงาน (รับแจ้งผล)</label><input type="email" id="f_email" placeholder="example@company.com"></div>
+      <div class="form-group"><label>ประเภทการลา *</label>
+        <select id="f_type"><option value="">-- เลือกประเภท --</option><option value="sick">ลาป่วย</option><option value="vacation">ลาพักร้อน</option><option value="personal">ลากิจ</option><option value="maternity">ลาคลอด</option><option value="ordain">ลาบวช</option></select>
       </div>
-      <div class="form-group">
-        <label>แผนก *</label>
-        <input type="text" id="f_dept" placeholder="เช่น บัญชี, IT, HR">
-      </div>
-      <div class="form-group">
-        <label>อีเมลพนักงาน (รับแจ้งผล)</label>
-        <input type="email" id="f_email" placeholder="example@company.com">
-      </div>
-      <div class="form-group">
-        <label>ประเภทการลา *</label>
-        <select id="f_type">
-          <option value="">-- เลือกประเภท --</option>
-          <option value="sick">ลาป่วย</option>
-          <option value="vacation">ลาพักร้อน</option>
-          <option value="personal">ลากิจ</option>
-          <option value="maternity">ลาคลอด</option>
-          <option value="ordain">ลาบวช</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>วันที่เริ่มลา *</label>
-        <input type="date" id="f_start" oninput="calcDays()">
-      </div>
-      <div class="form-group">
-        <label>วันที่สุดท้าย *</label>
-        <input type="date" id="f_end" oninput="calcDays()">
-      </div>
-      <div class="form-group">
-        <label>จำนวนวัน</label>
-        <input type="number" id="f_days" min="1" readonly style="background:var(--gray-50)">
-      </div>
-      <div class="form-group">
-        <label>ผู้ติดต่อสำรอง</label>
-        <input type="text" id="f_contact" placeholder="ชื่อ + เบอร์โทร">
-      </div>
-      <div class="form-group full">
-        <label>เหตุผลการลา *</label>
-        <textarea id="f_reason" placeholder="ระบุเหตุผลการลา..."></textarea>
-      </div>
+      <div class="form-group"><label>วันที่เริ่มลา *</label><input type="date" id="f_start" oninput="calcDays()"></div>
+      <div class="form-group"><label>วันที่สุดท้าย *</label><input type="date" id="f_end" oninput="calcDays()"></div>
+      <div class="form-group"><label>จำนวนวัน</label><input type="number" id="f_days" min="1" readonly style="background:var(--gray-50)"></div>
+      <div class="form-group"><label>ผู้ติดต่อสำรอง</label><input type="text" id="f_contact" placeholder="ชื่อ + เบอร์โทร"></div>
+      <div class="form-group full"><label>เหตุผลการลา *</label><textarea id="f_reason" placeholder="ระบุเหตุผลการลา..."></textarea></div>
     </div>
     <div style="margin-top:20px;display:flex;justify-content:flex-end;">
       <button class="btn btn-primary" id="submitBtn" onclick="submitLeave()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-        ส่งใบลา
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>ส่งใบลา
       </button>
     </div>
   </div>
 </div>
 
-<!-- PAGE: LIST -->
 <div class="page" id="page-list">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
     <div class="section-title">รายการลาทั้งหมด</div>
     <div style="display:flex;gap:8px;align-items:center">
       <input type="text" id="searchBox" placeholder="🔍 ค้นหาชื่อ..." style="width:160px;font-size:13px" oninput="filterList()">
       <select id="filterStatus" style="font-size:13px;padding:8px 10px" onchange="filterList()">
-        <option value="">ทุกสถานะ</option>
-        <option value="pending">รออนุมัติ</option>
-        <option value="approved">อนุมัติแล้ว</option>
-        <option value="rejected">ไม่อนุมัติ</option>
+        <option value="">ทุกสถานะ</option><option value="pending">รออนุมัติ</option><option value="approved">อนุมัติแล้ว</option><option value="rejected">ไม่อนุมัติ</option>
       </select>
     </div>
   </div>
   <div class="section-sub">อัปเดต real-time ทุก 8 วินาที</div>
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-num" id="st_total">—</div><div class="stat-label">รายการทั้งหมด</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--warn)" id="st_pending">—</div><div class="stat-label">รออนุมัติ</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--success)" id="st_approved">—</div><div class="stat-label">อนุมัติแล้ว</div></div>
+    <div class="stat-card"><div class="stat-num" id="st_total">0</div><div class="stat-label">รายการทั้งหมด</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--warn)" id="st_pending">0</div><div class="stat-label">รออนุมัติ</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--success)" id="st_approved">0</div><div class="stat-label">อนุมัติแล้ว</div></div>
   </div>
   <div class="table-wrap">
-    <table>
-      <thead><tr><th>ชื่อ-นามสกุล</th><th>แผนก</th><th>ประเภท</th><th>วันที่</th><th>จำนวน</th><th>สถานะ</th><th>วันที่ยื่น</th></tr></thead>
-      <tbody id="listBody"><tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr></tbody>
-    </table>
+    <table><thead><tr><th>ชื่อ-นามสกุล</th><th>แผนก</th><th>ประเภท</th><th>วันที่</th><th>จำนวน</th><th>สถานะ</th><th>วันที่ยื่น</th></tr></thead>
+    <tbody id="listBody"><tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr></tbody></table>
   </div>
 </div>
 
-<!-- PAGE: CALENDAR -->
 <div class="page" id="page-calendar">
   <div class="cal-header">
-    <div>
-      <div class="section-title">ปฏิทินการลา</div>
-      <div class="section-sub" style="margin-bottom:0">แสดงเฉพาะที่อนุมัติแล้ว</div>
-    </div>
-    <div class="cal-nav">
-      <button onclick="prevMonth()">‹</button>
-      <span class="cal-month" id="calTitle">—</span>
-      <button onclick="nextMonth()">›</button>
-    </div>
+    <div><div class="section-title">ปฏิทินการลา</div><div class="section-sub" style="margin-bottom:0">แสดงเฉพาะที่อนุมัติแล้ว</div></div>
+    <div class="cal-nav"><button onclick="prevMonth()">‹</button><span class="cal-month" id="calTitle">—</span><button onclick="nextMonth()">›</button></div>
   </div>
-  <div class="card" style="padding:0;overflow:hidden">
-    <div class="cal-grid" id="calGrid">
-      <div class="cal-day-name">อา</div><div class="cal-day-name">จ</div><div class="cal-day-name">อ</div>
-      <div class="cal-day-name">พ</div><div class="cal-day-name">พฤ</div><div class="cal-day-name">ศ</div><div class="cal-day-name">ส</div>
-    </div>
-  </div>
+  <div class="card" style="padding:0;overflow:hidden"><div class="cal-grid" id="calGrid"></div></div>
   <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-    <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#DBEAFE;display:inline-block"></span>ลาป่วย</span>
+    <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#FEE2E2;display:inline-block"></span>ลาป่วย</span>
     <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#D1FAE5;display:inline-block"></span>ลาพักร้อน</span>
     <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#EDE9FE;display:inline-block"></span>ลากิจ</span>
+    <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#DBEAFE;display:inline-block"></span>อื่นๆ</span>
   </div>
 </div>
 
-<!-- PAGE: ADMIN -->
 <div class="page" id="page-admin">
   <div class="section-title">อนุมัติใบลา</div>
   <div class="section-sub">แสดงเฉพาะรายการที่รออนุมัติ</div>
   <div class="table-wrap">
-    <table>
-      <thead><tr><th>ชื่อ-นามสกุล</th><th>แผนก</th><th>ประเภท</th><th>วันที่</th><th>จำนวน</th><th>เหตุผล</th><th>จัดการ</th></tr></thead>
-      <tbody id="adminBody"><tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr></tbody>
-    </table>
+    <table><thead><tr><th>ชื่อ-นามสกุล</th><th>แผนก</th><th>ประเภท</th><th>วันที่</th><th>จำนวน</th><th>เหตุผล</th><th>จัดการ</th></tr></thead>
+    <tbody id="adminBody"><tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr></tbody></table>
   </div>
 </div>
 
-<!-- PAGE: SETTINGS -->
 <div class="page" id="page-settings">
   <div class="section-title">⚙️ ตั้งค่าระบบ</div>
   <div class="section-sub">ตั้งค่าได้ทันที ไม่ต้องแก้ code</div>
-
-  <!-- LINE Notify -->
   <div class="settings-section">
-    <h3>🔔 LINE Notify Token</h3>
-    <div class="desc">แจ้งเตือนผู้บริหารทาง LINE เมื่อมีพนักงานยื่นลาใหม่</div>
-    <div class="info-box">
-      <strong>วิธีสร้าง Token ฟรี:</strong><br>
-      1. ไปที่ <a href="https://notify-bot.line.me/th/" target="_blank">notify-bot.line.me</a> → เข้าสู่ระบบด้วย LINE<br>
-      2. กด <strong>"Generate token"</strong> → ตั้งชื่อ → เลือก <strong>กลุ่ม LINE ผู้บริหาร</strong> (หรือ 1:1 กับตัวเอง)<br>
-      3. กด Generate → คัดลอก token มาวางด้านล่าง<br>
-      4. เพิ่ม <strong>LINE Notify</strong> เป็นเพื่อนในกลุ่ม LINE ที่เลือกด้วย
-    </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>LINE Notify Token</label>
-      <input type="text" id="s_lineToken" placeholder="วาง token ที่นี่">
-    </div>
-    <button class="btn btn-primary btn-sm" onclick="saveSetting('lineToken','s_lineToken','LINE Notify บันทึกแล้ว ✅')">บันทึก</button>
+    <h3>📧 อีเมลผู้บริหาร (รับแจ้งเตือนเมื่อมีใบลาใหม่)</h3>
+    <div class="desc">ระบบจะส่งอีเมลแจ้งผู้บริหารทันทีเมื่อพนักงานยื่นลา</div>
+    <div class="form-group" style="margin-bottom:12px"><label>อีเมลผู้บริหาร</label><input type="email" id="s_adminEmail" placeholder="admin@company.com"></div>
+    <button class="btn btn-primary btn-sm" onclick="saveSetting('adminEmail','s_adminEmail','บันทึกอีเมลผู้บริหารแล้ว ✅')">บันทึก</button>
   </div>
-
-  <!-- Admin Password -->
   <div class="settings-section">
     <h3>🔐 รหัสผ่านหน้าอนุมัติ</h3>
     <div class="desc">ล็อกหน้าอนุมัติและตั้งค่า ไม่ให้พนักงานทั่วไปเข้าได้</div>
-    <div class="form-group" style="margin-bottom:8px">
-      <label>รหัสผ่านใหม่</label>
-      <input type="password" id="s_pw" placeholder="ตั้งรหัสผ่าน">
-    </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>ยืนยันรหัสผ่าน</label>
-      <input type="password" id="s_pw2" placeholder="พิมพ์อีกครั้ง">
-    </div>
+    <div class="form-group" style="margin-bottom:8px"><label>รหัสผ่านใหม่</label><input type="password" id="s_pw" placeholder="ตั้งรหัสผ่าน"></div>
+    <div class="form-group" style="margin-bottom:12px"><label>ยืนยันรหัสผ่าน</label><input type="password" id="s_pw2" placeholder="พิมพ์อีกครั้ง"></div>
     <button class="btn btn-primary btn-sm" onclick="savePassword()">บันทึกรหัสผ่าน</button>
-    <span style="font-size:12px;color:var(--gray-400);margin-left:10px" id="pwStatus"></span>
   </div>
-
-  <!-- EmailJS -->
   <div class="settings-section">
-    <h3>📧 แจ้งอีเมลพนักงาน (EmailJS)</h3>
-    <div class="desc">ส่งอีเมลแจ้งพนักงานอัตโนมัติเมื่ออนุมัติหรือปฏิเสธ — ฟรี 200 อีเมล/เดือน</div>
-    <div class="info-box">
-      <strong>วิธีตั้งค่า EmailJS ฟรี:</strong><br>
-      1. ไปที่ <a href="https://www.emailjs.com/" target="_blank">emailjs.com</a> → Sign up ฟรี<br>
-      2. Add New Service → เลือก <strong>Gmail</strong> → เชื่อมบัญชี Gmail → จด <strong>Service ID</strong><br>
-      3. Email Templates → Create New Template → ตั้งค่า Subject/Body ตามชอบ → จด <strong>Template ID</strong><br>
-      &nbsp;&nbsp;&nbsp;(ใช้ variable: <code>{{to_email}}</code> <code>{{name}}</code> <code>{{status}}</code> <code>{{leave_type}}</code> <code>{{start}}</code> <code>{{end}}</code>)<br>
-      4. Account → จด <strong>Public Key</strong><br>
-      5. นำทั้ง 3 อย่างมากรอกด้านล่าง
-    </div>
+    <h3>📨 EmailJS (ส่งอีเมลแจ้งพนักงานเมื่ออนุมัติ)</h3>
+    <div class="desc">ฟรี 200 อีเมล/เดือน — ส่งผลการอนุมัติให้พนักงานอัตโนมัติ</div>
+    <div class="info-box">Service ID: <strong>service_0v5k41g</strong> &nbsp;|&nbsp; Template ID: <strong>template_rz3u47k</strong> &nbsp;|&nbsp; Public Key: <strong>qr4mio3xy2zs86P7s</strong><br>กดบันทึกด้านล่างได้เลยครับ ✅</div>
     <div class="form-grid">
-      <div class="form-group">
-        <label>Service ID</label>
-        <input type="text" id="s_ejService" placeholder="service_xxxxxxx">
-      </div>
-      <div class="form-group">
-        <label>Template ID</label>
-        <input type="text" id="s_ejTemplate" placeholder="template_xxxxxxx">
-      </div>
-      <div class="form-group full">
-        <label>Public Key</label>
-        <input type="text" id="s_ejKey" placeholder="Public Key จาก EmailJS Account">
-      </div>
+      <div class="form-group"><label>Service ID</label><input type="text" id="s_ejService" placeholder="service_xxxxxxx"></div>
+      <div class="form-group"><label>Template ID</label><input type="text" id="s_ejTemplate" placeholder="template_xxxxxxx"></div>
+      <div class="form-group full"><label>Public Key</label><input type="text" id="s_ejKey" placeholder="Public Key จาก EmailJS"></div>
     </div>
     <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="saveEmailJS()">บันทึก EmailJS</button>
   </div>
-
   <div style="text-align:right;margin-top:8px">
     <button class="btn btn-secondary btn-sm" onclick="loadSettings()">🔄 โหลดค่าที่บันทึกไว้</button>
   </div>
 </div>
-
 </main>
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-// ========== CONFIG ==========
+// ===== CONSTANTS (declared first to avoid reference errors) =====
 const DB_URL = 'https://day-off-63954-default-rtdb.asia-southeast1.firebasedatabase.app';
+const SITE_URL = 'https://trinityhr.github.io/Trinity-e-Leave-System/';
+const TYPE_LABEL = {sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
+const STATUS_BADGE = {
+  pending:'<span class="badge badge-pending">⏳ รออนุมัติ</span>',
+  approved:'<span class="badge badge-approved">✅ อนุมัติแล้ว</span>',
+  rejected:'<span class="badge badge-rejected">❌ ไม่อนุมัติ</span>'
+};
+const TH_MONTHS = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const TH_MON_SHORT = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
 let allLeaves = [];
 let adminUnlocked = false;
 let pendingPage = '';
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
 
-// load settings from localStorage
-function getSetting(k){ return localStorage.getItem('ls_'+k) || ''; }
-function setSetting(k,v){ localStorage.setItem('ls_'+k, v); }
+// ===== SETTINGS =====
+function getSetting(k){ return localStorage.getItem('ls_'+k)||''; }
+function setSetting(k,v){ localStorage.setItem('ls_'+k,v); }
 
+// ===== INIT =====
 document.getElementById('navBrand').textContent = getSetting('company') || 'ระบบลางาน';
-init();
 
-// ========== FIREBASE ==========
+window.addEventListener('load', function(){
+  loadLeaves();
+  setInterval(loadLeaves, 8000);
+  renderCalendar();
+  // auto-fill EmailJS settings if not set
+  if(!getSetting('ejService')) setSetting('ejService','service_0v5k41g');
+  if(!getSetting('ejTemplate')) setSetting('ejTemplate','template_rz3u47k');
+  if(!getSetting('ejKey')) setSetting('ejKey','qr4mio3xy2zs86P7s');
+});
+
+// ===== FIREBASE =====
 async function fbGet(p){ const r=await fetch(`${DB_URL}/${p}.json`); return r.json(); }
 async function fbPush(p,d){ const r=await fetch(`${DB_URL}/${p}.json`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}); return r.json(); }
 async function fbUpdate(p,d){ await fetch(`${DB_URL}/${p}.json`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}); }
-
-// ========== INIT ==========
-function init(){ loadLeaves(); setInterval(loadLeaves,8000); renderCalendar(); }
 
 async function loadLeaves(){
   try{
@@ -383,10 +280,10 @@ async function loadLeaves(){
     renderAdmin(allLeaves.filter(l=>l.status==='pending'));
     renderCalendar();
     updateStats();
-  }catch(e){ console.error(e); }
+  }catch(e){ console.error('Firebase error:',e); }
 }
 
-// ========== FORM ==========
+// ===== FORM =====
 function calcDays(){
   const s=document.getElementById('f_start').value, e=document.getElementById('f_end').value;
   if(s&&e){ const d=Math.round((new Date(e)-new Date(s))/86400000)+1; document.getElementById('f_days').value=d>0?d:1; }
@@ -410,7 +307,7 @@ async function submitLeave(){
   try{
     await fbPush('leaves',leave);
     showToast('ยื่นใบลาสำเร็จ ✅','success');
-    sendLineNotify(leave);
+    sendAdminEmail(leave);
     ['f_name','f_dept','f_email','f_reason','f_contact','f_start','f_end','f_days'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('f_type').value='';
     loadLeaves();
@@ -419,70 +316,54 @@ async function submitLeave(){
   btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> ส่งใบลา';
 }
 
-// ========== LINE NOTIFY ==========
-async function sendLineNotify(leave){
-  const token=getSetting('lineToken');
-  if(!token) return;
-  const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
-  const siteUrl='https://trinityhr.github.io/Trinity-e-Leave-System/';
-  const msg=`
-🔔 มีใบลาใหม่!
-👤 ${leave.name} (${leave.dept})
-📋 ${typeLabel[leave.type]||leave.type}
-📅 ${formatDate(leave.start)}${leave.start!==leave.end?' – '+formatDate(leave.end):''} (${leave.days} วัน)
-📝 ${leave.reason}
-
-👉 กดอนุมัติได้ที่:
-${siteUrl}`;
+// ===== EMAIL =====
+async function sendAdminEmail(leave){
+  const svc=getSetting('ejService'), tpl=getSetting('ejTemplate'), key=getSetting('ejKey');
+  const adminEmail=getSetting('adminEmail');
+  if(!svc||!tpl||!key||!adminEmail) return;
   try{
-    await fetch('https://notify-api.line.me/api/notify',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+token,'Content-Type':'application/x-www-form-urlencoded'},
-      body:'message='+encodeURIComponent(msg)
+    emailjs.init(key);
+    await emailjs.send(svc, tpl, {
+      to_email: adminEmail,
+      name: '👔 ผู้บริหาร',
+      status: `มีใบลาใหม่จาก ${leave.name} (${leave.dept})`,
+      leave_type: TYPE_LABEL[leave.type]||leave.type,
+      start: formatDate(leave.start),
+      end: formatDate(leave.end),
+      days: leave.days + ' วัน | เหตุผล: ' + leave.reason + '\n\nกดอนุมัติ: ' + SITE_URL
     });
-  }catch(e){ console.log('LINE Notify error',e); }
+  }catch(e){ console.log('EmailJS admin error',e); }
 }
 
-// ========== EMAILJS ==========
-async function sendEmailNotify(leave, status){
+async function sendEmployeeEmail(leave, status){
   const svc=getSetting('ejService'), tpl=getSetting('ejTemplate'), key=getSetting('ejKey');
   if(!svc||!tpl||!key||!leave.email) return;
-  const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
   try{
     emailjs.init(key);
     await emailjs.send(svc, tpl, {
       to_email: leave.email,
       name: leave.name,
       status: status==='approved'?'✅ อนุมัติแล้ว':'❌ ไม่อนุมัติ',
-      leave_type: typeLabel[leave.type]||leave.type,
+      leave_type: TYPE_LABEL[leave.type]||leave.type,
       start: formatDate(leave.start),
       end: formatDate(leave.end),
       days: leave.days
     });
-  }catch(e){ console.log('EmailJS error',e); }
+  }catch(e){ console.log('EmailJS employee error',e); }
 }
 
-// ========== LIST ==========
-const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
-const statusBadge={
-  pending:'<span class="badge badge-pending">⏳ รออนุมัติ</span>',
-  approved:'<span class="badge badge-approved">✅ อนุมัติแล้ว</span>',
-  rejected:'<span class="badge badge-rejected">❌ ไม่อนุมัติ</span>'
-};
-
+// ===== LIST =====
 function renderList(leaves){
   const tbody=document.getElementById('listBody');
   if(!leaves.length){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">ยังไม่มีรายการลา</td></tr>'; return; }
-  tbody.innerHTML=leaves.map(l=>`
-    <tr>
-      <td><strong>${l.name}</strong></td>
-      <td>${l.dept}</td>
-      <td>${typeLabel[l.type]||l.type}</td>
-      <td style="white-space:nowrap">${formatDate(l.start)}${l.start!==l.end?' – '+formatDate(l.end):''}</td>
-      <td style="text-align:center">${l.days} วัน</td>
-      <td>${statusBadge[l.status]||l.status}</td>
-      <td style="color:var(--gray-400);font-size:12px">${formatTs(l.createdAt)}</td>
-    </tr>`).join('');
+  tbody.innerHTML=leaves.map(l=>`<tr>
+    <td><strong>${l.name}</strong></td><td>${l.dept}</td>
+    <td>${TYPE_LABEL[l.type]||l.type}</td>
+    <td style="white-space:nowrap">${formatDate(l.start)}${l.start!==l.end?' – '+formatDate(l.end):''}</td>
+    <td style="text-align:center">${l.days} วัน</td>
+    <td>${STATUS_BADGE[l.status]||l.status}</td>
+    <td style="color:var(--gray-400);font-size:12px">${formatTs(l.createdAt)}</td>
+  </tr>`).join('');
 }
 
 function filterList(){
@@ -497,40 +378,35 @@ function updateStats(){
   document.getElementById('st_approved').textContent=allLeaves.filter(l=>l.status==='approved').length;
 }
 
-// ========== ADMIN ==========
+// ===== ADMIN =====
 function renderAdmin(leaves){
   const tbody=document.getElementById('adminBody');
   if(!leaves.length){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gray-500);padding:32px">✅ ไม่มีรายการรออนุมัติ</td></tr>'; return; }
-  tbody.innerHTML=leaves.map(l=>`
-    <tr>
-      <td><strong>${l.name}</strong></td>
-      <td>${l.dept}</td>
-      <td>${typeLabel[l.type]||l.type}</td>
-      <td style="white-space:nowrap">${formatDate(l.start)}${l.start!==l.end?' – '+formatDate(l.end):''}</td>
-      <td style="text-align:center">${l.days} วัน</td>
-      <td style="max-width:160px;font-size:12px;color:var(--gray-500)">${l.reason}</td>
-      <td>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-sm btn-approve" onclick="setStatus('${l.id}','approved')">✅ อนุมัติ</button>
-          <button class="btn btn-sm btn-reject" onclick="setStatus('${l.id}','rejected')">❌ ไม่อนุมัติ</button>
-        </div>
-      </td>
-    </tr>`).join('');
+  tbody.innerHTML=leaves.map(l=>`<tr>
+    <td><strong>${l.name}</strong></td><td>${l.dept}</td>
+    <td>${TYPE_LABEL[l.type]||l.type}</td>
+    <td style="white-space:nowrap">${formatDate(l.start)}${l.start!==l.end?' – '+formatDate(l.end):''}</td>
+    <td style="text-align:center">${l.days} วัน</td>
+    <td style="max-width:160px;font-size:12px;color:var(--gray-500)">${l.reason}</td>
+    <td><div style="display:flex;gap:6px">
+      <button class="btn btn-sm btn-approve" onclick="setStatus('${l.id}','approved')">✅ อนุมัติ</button>
+      <button class="btn btn-sm btn-reject" onclick="setStatus('${l.id}','rejected')">❌ ไม่อนุมัติ</button>
+    </div></td>
+  </tr>`).join('');
 }
 
 async function setStatus(id, status){
   await fbUpdate(`leaves/${id}`,{status});
   const leave=allLeaves.find(l=>l.id===id);
-  if(leave) sendEmailNotify(leave, status);
+  if(leave) sendEmployeeEmail(leave, status);
   showToast(status==='approved'?'อนุมัติเรียบร้อย ✅':'ปฏิเสธใบลาแล้ว', status==='approved'?'success':'error');
   loadLeaves();
 }
 
-// ========== LOCK / ADMIN AUTH ==========
+// ===== LOCK =====
 function requireAdmin(page, e){
   const pw=getSetting('adminPw');
-  if(!pw){ showPage(page,e); return; }
-  if(adminUnlocked){ showPage(page,e); return; }
+  if(!pw||adminUnlocked){ showPage(page,e); return; }
   pendingPage=page;
   document.getElementById('pwInput').value='';
   document.getElementById('pwError').style.display='none';
@@ -539,8 +415,7 @@ function requireAdmin(page, e){
 }
 
 function checkPw(){
-  const entered=document.getElementById('pwInput').value;
-  if(entered===getSetting('adminPw')){
+  if(document.getElementById('pwInput').value===getSetting('adminPw')){
     adminUnlocked=true;
     document.getElementById('lockScreen').classList.add('hidden');
     document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
@@ -550,51 +425,40 @@ function checkPw(){
   } else {
     document.getElementById('pwError').style.display='block';
     document.getElementById('pwInput').value='';
-    document.getElementById('pwInput').focus();
   }
 }
 
-function cancelAdmin(){
-  document.getElementById('lockScreen').classList.add('hidden');
-}
+function cancelAdmin(){ document.getElementById('lockScreen').classList.add('hidden'); }
 
-// ========== SETTINGS ==========
+// ===== SETTINGS =====
 function loadSettings(){
-  document.getElementById('s_lineToken').value=getSetting('lineToken');
+  document.getElementById('s_adminEmail').value=getSetting('adminEmail');
   document.getElementById('s_ejService').value=getSetting('ejService');
   document.getElementById('s_ejTemplate').value=getSetting('ejTemplate');
   document.getElementById('s_ejKey').value=getSetting('ejKey');
 }
 
-function saveSetting(key, inputId, msg){
-  setSetting(key, document.getElementById(inputId).value.trim());
-  showToast(msg,'success');
-}
+function saveSetting(key,inputId,msg){ setSetting(key,document.getElementById(inputId).value.trim()); showToast(msg,'success'); }
 
 function savePassword(){
-  const p1=document.getElementById('s_pw').value;
-  const p2=document.getElementById('s_pw2').value;
+  const p1=document.getElementById('s_pw').value, p2=document.getElementById('s_pw2').value;
   if(!p1){ showToast('กรุณาใส่รหัสผ่าน','error'); return; }
   if(p1!==p2){ showToast('รหัสผ่านไม่ตรงกัน','error'); return; }
   setSetting('adminPw',p1);
-  document.getElementById('s_pw').value='';
-  document.getElementById('s_pw2').value='';
+  document.getElementById('s_pw').value=''; document.getElementById('s_pw2').value='';
   showToast('บันทึกรหัสผ่านแล้ว 🔐','success');
 }
 
 function saveEmailJS(){
-  setSetting('ejService', document.getElementById('s_ejService').value.trim());
-  setSetting('ejTemplate', document.getElementById('s_ejTemplate').value.trim());
-  setSetting('ejKey', document.getElementById('s_ejKey').value.trim());
+  setSetting('ejService',document.getElementById('s_ejService').value.trim());
+  setSetting('ejTemplate',document.getElementById('s_ejTemplate').value.trim());
+  setSetting('ejKey',document.getElementById('s_ejKey').value.trim());
   showToast('บันทึก EmailJS แล้ว ✅','success');
 }
 
-// ========== CALENDAR ==========
-let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
-const thMonths=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
-
+// ===== CALENDAR =====
 function renderCalendar(){
-  document.getElementById('calTitle').textContent=`${thMonths[calMonth]} ${calYear+543}`;
+  document.getElementById('calTitle').textContent=`${TH_MONTHS[calMonth]} ${calYear+543}`;
   const grid=document.getElementById('calGrid');
   const dayNames=['อา','จ','อ','พ','พฤ','ศ','ส'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');
   const first=new Date(calYear,calMonth,1).getDay();
@@ -602,7 +466,7 @@ function renderCalendar(){
   const today=new Date();
   const dayLeaves={};
   allLeaves.filter(l=>l.status==='approved').forEach(l=>{
-    let cur=new Date(l.start); const endD=new Date(l.end);
+    let cur=new Date(l.start+'T00:00:00'); const endD=new Date(l.end+'T00:00:00');
     while(cur<=endD){
       if(cur.getFullYear()===calYear&&cur.getMonth()===calMonth){
         const k=cur.getDate(); if(!dayLeaves[k]) dayLeaves[k]=[];
@@ -629,8 +493,8 @@ function renderCalendar(){
 function prevMonth(){ if(calMonth===0){calMonth=11;calYear--;}else calMonth--; renderCalendar(); }
 function nextMonth(){ if(calMonth===11){calMonth=0;calYear++;}else calMonth++; renderCalendar(); }
 
-// ========== NAV ==========
-function showPage(p, e){
+// ===== NAV =====
+function showPage(p,e){
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
@@ -639,14 +503,14 @@ function showPage(p, e){
   if(p==='settings') loadSettings();
 }
 
-// ========== HELPERS ==========
+// ===== HELPERS =====
 function formatDate(d){
-  if(!d)return'';
+  if(!d) return'';
   const[y,m,day]=d.split('-');
-  return`${parseInt(day)} ${['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'][parseInt(m)]} ${parseInt(y)+543}`;
+  return`${parseInt(day)} ${TH_MON_SHORT[parseInt(m)]} ${parseInt(y)+543}`;
 }
 function formatTs(ts){
-  if(!ts)return'';
+  if(!ts) return'';
   const d=new Date(ts);
   return`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
