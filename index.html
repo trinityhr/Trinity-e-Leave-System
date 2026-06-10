@@ -331,6 +331,8 @@ function getSetting(k){ return localStorage.getItem('ls_'+k)||''; }
 function setSetting(k,v){ localStorage.setItem('ls_'+k,v); }
 
 document.getElementById('navBrand').textContent = getSetting('company')||'ระบบลางาน';
+// hardcode admin email
+if(!getSetting('adminEmail')) setSetting('adminEmail','phatara.l@trinitycolegal.com');
 
 window.addEventListener('load',()=>{
   loadLeaves();
@@ -523,7 +525,8 @@ function askDelete(id, name){
 async function confirmDelete(){
   const pw=getSetting('adminPw');
   const entered=document.getElementById('deletePwInput').value;
-  if(pw && entered!==pw){ document.getElementById('deletePwError').style.display='block'; return; }
+  if(!entered){ document.getElementById('deletePwError').style.display='block'; document.getElementById('deletePwError').textContent='กรุณาใส่รหัสผ่าน'; return; }
+  if(pw && entered!==pw){ document.getElementById('deletePwError').style.display='block'; document.getElementById('deletePwError').textContent='รหัสผ่านไม่ถูกต้อง'; return; }
   if(deleteTargetId){
     await fbDelete(`leaves/${deleteTargetId}`);
     showToast('ลบรายการเรียบร้อย','success');
@@ -616,9 +619,8 @@ function formatDateFull(d){
 // LOCK
 function requireAdmin(page,e){
   const pw=getSetting('adminPw');
-  if(!pw){ showPage(page,e); return; }
-  // settings always requires password, admin only first time
-  if(page!=='settings' && adminUnlocked){ showPage(page,e); return; }
+  if(!pw){ showPage(page,e); return; } // ยังไม่ได้ตั้งรหัส เข้าได้เลย
+  // ต้องใส่รหัสทุกครั้ง ไม่ว่าใครเปิด
   pendingPage=page;
   document.getElementById('pwInput').value='';
   document.getElementById('pwError').style.display='none';
