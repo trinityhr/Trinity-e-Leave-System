@@ -6,339 +6,128 @@
 <title>ระบบลางาน</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
-
   :root {
-    --brand: #2563EB;
-    --brand-light: #EFF6FF;
-    --brand-dark: #1D4ED8;
-    --success: #059669;
-    --success-light: #ECFDF5;
-    --danger: #DC2626;
-    --danger-light: #FEF2F2;
-    --warn: #D97706;
-    --warn-light: #FFFBEB;
-    --gray-50: #F9FAFB;
-    --gray-100: #F3F4F6;
-    --gray-200: #E5E7EB;
-    --gray-400: #9CA3AF;
-    --gray-500: #6B7280;
-    --gray-700: #374151;
-    --gray-900: #111827;
-    --radius: 10px;
-    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-    --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+    --brand:#2563EB;--brand-light:#EFF6FF;--brand-dark:#1D4ED8;
+    --success:#059669;--success-light:#ECFDF5;
+    --danger:#DC2626;--danger-light:#FEF2F2;
+    --warn:#D97706;--warn-light:#FFFBEB;
+    --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+    --gray-400:#9CA3AF;--gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
+    --radius:10px;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+    --shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Sarabun', sans-serif;
-    background: var(--gray-50);
-    color: var(--gray-900);
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  /* NAV */
-  nav {
-    background: #fff;
-    border-bottom: 1px solid var(--gray-200);
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: var(--shadow);
-  }
-  .nav-brand { font-size: 17px; font-weight: 700; color: var(--brand); display: flex; align-items: center; gap: 8px; }
-  .nav-brand svg { width: 22px; height: 22px; }
-  .nav-tabs { display: flex; gap: 4px; }
-  .nav-tab {
-    padding: 6px 16px;
-    border-radius: 6px;
-    border: none;
-    background: transparent;
-    color: var(--gray-500);
-    cursor: pointer;
-    font-family: 'Sarabun', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all .15s;
-  }
-  .nav-tab:hover { background: var(--gray-100); color: var(--gray-700); }
-  .nav-tab.active { background: var(--brand-light); color: var(--brand); }
-
-  /* LAYOUT */
-  main { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
-
-  /* SECTION HEADER */
-  .section-title { font-size: 20px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
-  .section-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; }
-
-  /* CARD */
-  .card {
-    background: #fff;
-    border-radius: var(--radius);
-    border: 1px solid var(--gray-200);
-    padding: 24px;
-    box-shadow: var(--shadow);
-  }
-
-  /* FORM */
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group.full { grid-column: 1 / -1; }
-  label { font-size: 13px; font-weight: 600; color: var(--gray-700); }
-  input, select, textarea {
-    border: 1.5px solid var(--gray-200);
-    border-radius: 7px;
-    padding: 9px 12px;
-    font-family: 'Sarabun', sans-serif;
-    font-size: 14px;
-    color: var(--gray-900);
-    background: #fff;
-    transition: border-color .15s, box-shadow .15s;
-    outline: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
-  }
-  textarea { resize: vertical; min-height: 80px; }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 10px 20px;
-    border-radius: 7px;
-    border: none;
-    font-family: 'Sarabun', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .15s;
-  }
-  .btn-primary { background: var(--brand); color: #fff; }
-  .btn-primary:hover { background: var(--brand-dark); }
-  .btn-primary:disabled { background: var(--gray-400); cursor: not-allowed; }
-  .btn-sm { padding: 5px 12px; font-size: 12px; border-radius: 6px; }
-  .btn-approve { background: var(--success-light); color: var(--success); border: 1px solid #6EE7B7; }
-  .btn-approve:hover { background: #D1FAE5; }
-  .btn-reject { background: var(--danger-light); color: var(--danger); border: 1px solid #FCA5A5; }
-  .btn-reject:hover { background: #FEE2E2; }
-
-  /* BADGE */
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .badge-pending { background: var(--warn-light); color: var(--warn); }
-  .badge-approved { background: var(--success-light); color: var(--success); }
-  .badge-rejected { background: var(--danger-light); color: var(--danger); }
-
-  /* TABLE */
-  .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--gray-200); }
-  table { width: 100%; border-collapse: collapse; }
-  thead { background: var(--gray-50); }
-  th {
-    padding: 10px 14px;
-    text-align: left;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-500);
-    letter-spacing: .03em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--gray-200);
-  }
-  td {
-    padding: 12px 14px;
-    font-size: 13px;
-    border-bottom: 1px solid var(--gray-100);
-    vertical-align: middle;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--gray-50); }
-
-  /* CALENDAR */
-  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .cal-nav { display: flex; align-items: center; gap: 12px; }
-  .cal-nav button {
-    background: var(--gray-100);
-    border: none;
-    border-radius: 6px;
-    width: 32px; height: 32px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
-  }
-  .cal-nav button:hover { background: var(--gray-200); }
-  .cal-month { font-size: 17px; font-weight: 700; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--gray-200); border-radius: 8px; overflow: hidden; }
-  .cal-day-name { background: var(--gray-100); text-align: center; padding: 8px 4px; font-size: 12px; font-weight: 700; color: var(--gray-500); }
-  .cal-cell {
-    background: #fff;
-    min-height: 72px;
-    padding: 6px;
-    font-size: 12px;
-    vertical-align: top;
-  }
-  .cal-cell.other-month { background: var(--gray-50); }
-  .cal-cell.today { background: var(--brand-light); }
-  .cal-date { font-weight: 700; font-size: 13px; color: var(--gray-700); margin-bottom: 3px; }
-  .cal-cell.today .cal-date { color: var(--brand); }
-  .cal-leave-tag {
-    background: #DBEAFE;
-    color: #1D4ED8;
-    border-radius: 4px;
-    padding: 1px 5px;
-    font-size: 11px;
-    font-weight: 500;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .cal-leave-tag.sick { background: #FEE2E2; color: #B91C1C; }
-  .cal-leave-tag.personal { background: #EDE9FE; color: #6D28D9; }
-  .cal-leave-tag.vacation { background: #D1FAE5; color: #065F46; }
-
-  /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--gray-900);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-    z-index: 9999;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all .3s;
-  }
-  .toast.show { transform: translateY(0); opacity: 1; }
-  .toast.success { background: var(--success); }
-  .toast.error { background: var(--danger); }
-
-  /* STATS */
-  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
-  .stat-card {
-    background: #fff;
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    box-shadow: var(--shadow);
-  }
-  .stat-num { font-size: 26px; font-weight: 700; }
-  .stat-label { font-size: 12px; color: var(--gray-500); font-weight: 500; }
-
-  /* SETUP MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.45);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 200;
-  }
-  .modal {
-    background: #fff;
-    border-radius: 14px;
-    padding: 32px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.15);
-  }
-  .modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-  .modal p { font-size: 13px; color: var(--gray-500); margin-bottom: 20px; }
-  .firebase-steps { counter-reset: step; }
-  .firebase-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
-    font-size: 13px;
-    color: var(--gray-700);
-  }
-  .step-num {
-    min-width: 22px; height: 22px;
-    background: var(--brand);
-    color: #fff;
-    border-radius: 50%;
-    font-size: 11px;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    margin-top: 1px;
-  }
-  .code-box {
-    background: var(--gray-100);
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-family: monospace;
-    font-size: 12px;
-    color: var(--gray-700);
-    word-break: break-all;
-    margin: 8px 0;
-    border: 1px solid var(--gray-200);
-  }
-  .page { display: none; }
-  .page.active { display: block; }
-
-  @media (max-width: 600px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: 1fr 1fr; }
-    .nav-tabs { gap: 2px; }
-    .nav-tab { padding: 5px 10px; font-size: 12px; }
-    .cal-cell { min-height: 52px; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Sarabun',sans-serif;background:var(--gray-50);color:var(--gray-900);font-size:15px;line-height:1.6;}
+  nav{background:#fff;border-bottom:1px solid var(--gray-200);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow);}
+  .nav-brand{font-size:17px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:8px;}
+  .nav-brand svg{width:22px;height:22px;}
+  .nav-tabs{display:flex;gap:4px;}
+  .nav-tab{padding:6px 16px;border-radius:6px;border:none;background:transparent;color:var(--gray-500);cursor:pointer;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:500;transition:all .15s;}
+  .nav-tab:hover{background:var(--gray-100);color:var(--gray-700);}
+  .nav-tab.active{background:var(--brand-light);color:var(--brand);}
+  main{max-width:960px;margin:0 auto;padding:28px 20px;}
+  .section-title{font-size:20px;font-weight:700;color:var(--gray-900);margin-bottom:4px;}
+  .section-sub{font-size:13px;color:var(--gray-500);margin-bottom:24px;}
+  .card{background:#fff;border-radius:var(--radius);border:1px solid var(--gray-200);padding:24px;box-shadow:var(--shadow);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:6px;}
+  .form-group.full{grid-column:1/-1;}
+  label{font-size:13px;font-weight:600;color:var(--gray-700);}
+  input,select,textarea{border:1.5px solid var(--gray-200);border-radius:7px;padding:9px 12px;font-family:'Sarabun',sans-serif;font-size:14px;color:var(--gray-900);background:#fff;transition:border-color .15s,box-shadow .15s;outline:none;}
+  input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+  textarea{resize:vertical;min-height:80px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;border-radius:7px;border:none;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;}
+  .btn-primary{background:var(--brand);color:#fff;}
+  .btn-primary:hover{background:var(--brand-dark);}
+  .btn-primary:disabled{background:var(--gray-400);cursor:not-allowed;}
+  .btn-secondary{background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-200);}
+  .btn-secondary:hover{background:var(--gray-200);}
+  .btn-sm{padding:5px 12px;font-size:12px;border-radius:6px;}
+  .btn-approve{background:var(--success-light);color:var(--success);border:1px solid #6EE7B7;}
+  .btn-approve:hover{background:#D1FAE5;}
+  .btn-reject{background:var(--danger-light);color:var(--danger);border:1px solid #FCA5A5;}
+  .btn-reject:hover{background:#FEE2E2;}
+  .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+  .badge-pending{background:var(--warn-light);color:var(--warn);}
+  .badge-approved{background:var(--success-light);color:var(--success);}
+  .badge-rejected{background:var(--danger-light);color:var(--danger);}
+  .table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--gray-200);}
+  table{width:100%;border-collapse:collapse;}
+  thead{background:var(--gray-50);}
+  th{padding:10px 14px;text-align:left;font-size:12px;font-weight:600;color:var(--gray-500);letter-spacing:.03em;text-transform:uppercase;border-bottom:1px solid var(--gray-200);}
+  td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:var(--gray-50);}
+  .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .cal-nav{display:flex;align-items:center;gap:12px;}
+  .cal-nav button{background:var(--gray-100);border:none;border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .cal-nav button:hover{background:var(--gray-200);}
+  .cal-month{font-size:17px;font-weight:700;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--gray-200);border-radius:8px;overflow:hidden;}
+  .cal-day-name{background:var(--gray-100);text-align:center;padding:8px 4px;font-size:12px;font-weight:700;color:var(--gray-500);}
+  .cal-cell{background:#fff;min-height:72px;padding:6px;font-size:12px;vertical-align:top;}
+  .cal-cell.other-month{background:var(--gray-50);}
+  .cal-cell.today{background:var(--brand-light);}
+  .cal-date{font-weight:700;font-size:13px;color:var(--gray-700);margin-bottom:3px;}
+  .cal-cell.today .cal-date{color:var(--brand);}
+  .cal-leave-tag{background:#DBEAFE;color:#1D4ED8;border-radius:4px;padding:1px 5px;font-size:11px;font-weight:500;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .cal-leave-tag.sick{background:#FEE2E2;color:#B91C1C;}
+  .cal-leave-tag.personal{background:#EDE9FE;color:#6D28D9;}
+  .cal-leave-tag.vacation{background:#D1FAE5;color:#065F46;}
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--gray-900);color:#fff;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:500;box-shadow:var(--shadow-md);z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;}
+  .toast.show{transform:translateY(0);opacity:1;}
+  .toast.success{background:var(--success);}
+  .toast.error{background:var(--danger);}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+  .stat-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);}
+  .stat-num{font-size:26px;font-weight:700;}
+  .stat-label{font-size:12px;color:var(--gray-500);font-weight:500;}
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:200;}
+  .modal-overlay.hidden{display:none;}
+  .modal{background:#fff;border-radius:14px;padding:32px;width:90%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .modal h2{font-size:20px;font-weight:700;margin-bottom:8px;}
+  .modal p{font-size:13px;color:var(--gray-500);margin-bottom:20px;}
+  /* SETTINGS PAGE */
+  .settings-section{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow);}
+  .settings-section h3{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+  .settings-section .desc{font-size:12px;color:var(--gray-500);margin-bottom:16px;}
+  .info-box{background:var(--brand-light);border:1px solid #BFDBFE;border-radius:7px;padding:12px 14px;font-size:12px;color:#1E40AF;margin-bottom:14px;line-height:1.7;}
+  .info-box a{color:var(--brand);font-weight:600;}
+  .page{display:none;}
+  .page.active{display:block;}
+  /* LOCK SCREEN */
+  .lock-screen{position:fixed;inset:0;background:var(--gray-50);display:flex;align-items:center;justify-content:center;z-index:150;}
+  .lock-screen.hidden{display:none;}
+  .lock-card{background:#fff;border-radius:14px;padding:36px;width:90%;max-width:360px;box-shadow:0 8px 32px rgba(0,0,0,.12);text-align:center;}
+  .lock-card .lock-icon{font-size:40px;margin-bottom:12px;}
+  .lock-card h2{font-size:18px;font-weight:700;margin-bottom:6px;}
+  .lock-card p{font-size:13px;color:var(--gray-500);margin-bottom:20px;}
+  .lock-card input{text-align:center;letter-spacing:4px;font-size:20px;font-weight:700;}
+  @media(max-width:600px){
+    .form-grid{grid-template-columns:1fr;}
+    .stats-row{grid-template-columns:1fr 1fr;}
+    .nav-tabs{gap:2px;}
+    .nav-tab{padding:5px 8px;font-size:12px;}
+    .cal-cell{min-height:52px;}
   }
 </style>
 </head>
 <body>
 
-<!-- SETUP MODAL -->
-<div class="modal-overlay" id="setupModal">
-  <div class="modal">
-    <h2>🔧 ตั้งค่า Firebase ก่อนใช้งาน</h2>
-    <p>ระบบนี้ใช้ Firebase Realtime Database เพื่อให้ทุกคนเห็นข้อมูลตรงกัน — ทำครั้งเดียว ใช้ได้ตลอด</p>
-    <div class="firebase-steps">
-      <div class="firebase-step">
-        <span class="step-num">1</span>
-        <span>ไปที่ <strong>console.firebase.google.com</strong> → สร้าง Project ใหม่ฟรี</span>
-      </div>
-      <div class="firebase-step">
-        <span class="step-num">2</span>
-        <span>เปิด <strong>Realtime Database</strong> → Start in test mode → ได้ URL มา</span>
-      </div>
-      <div class="firebase-step">
-        <span class="step-num">3</span>
-        <span>กลับมากรอก URL ด้านล่างนี้ แล้วกด บันทึก</span>
-      </div>
-    </div>
-    <div class="code-box">https://YOUR-PROJECT-default-rtdb.firebaseio.com</div>
+<!-- LOCK SCREEN (Admin) -->
+<div class="lock-screen hidden" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-icon">🔐</div>
+    <h2>หน้าผู้บริหาร</h2>
+    <p>กรุณาใส่รหัสผ่านเพื่อเข้าใช้งาน</p>
     <div class="form-group" style="margin-bottom:16px">
-      <label>Firebase Database URL</label>
-      <input type="url" id="firebaseUrlInput" placeholder="https://your-project-default-rtdb.firebaseio.com">
+      <input type="password" id="pwInput" placeholder="รหัสผ่าน" onkeydown="if(event.key==='Enter')checkPw()">
     </div>
-    <div class="form-group" style="margin-bottom:0">
-      <label>ชื่อบริษัท / ทีม (แสดงในหัวระบบ)</label>
-      <input type="text" id="companyNameInput" placeholder="เช่น บริษัท XYZ จำกัด">
-    </div>
-    <div style="margin-top:20px; display:flex; gap:10px;">
-      <button class="btn btn-primary" style="flex:1" onclick="saveConfig()">บันทึกและเริ่มใช้งาน</button>
-    </div>
-    <p style="margin-top:12px;margin-bottom:0;font-size:11px;text-align:center;color:var(--gray-400)">ข้อมูล config บันทึกเฉพาะใน browser นี้ ต้องตั้งค่าทุก browser ที่ใช้ครั้งแรก</p>
+    <button class="btn btn-primary" style="width:100%" onclick="checkPw()">เข้าสู่ระบบ</button>
+    <button class="btn btn-secondary" style="width:100%;margin-top:8px" onclick="cancelAdmin()">ยกเลิก</button>
+    <div id="pwError" style="color:var(--danger);font-size:13px;margin-top:10px;display:none">รหัสผ่านไม่ถูกต้อง</div>
   </div>
 </div>
 
@@ -349,439 +138,513 @@
     <span id="navBrand">ระบบลางาน</span>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('form')">📝 ยื่นลา</button>
-    <button class="nav-tab" onclick="showPage('list')">📋 รายการลา</button>
-    <button class="nav-tab" onclick="showPage('calendar')">📅 ปฏิทิน</button>
-    <button class="nav-tab" onclick="showPage('admin')">✅ อนุมัติ</button>
+    <button class="nav-tab active" onclick="showPage('form',event)">📝 ยื่นลา</button>
+    <button class="nav-tab" onclick="showPage('list',event)">📋 รายการ</button>
+    <button class="nav-tab" onclick="showPage('calendar',event)">📅 ปฏิทิน</button>
+    <button class="nav-tab" onclick="requireAdmin('admin',event)">✅ อนุมัติ</button>
+    <button class="nav-tab" onclick="requireAdmin('settings',event)">⚙️ ตั้งค่า</button>
   </div>
 </nav>
 
 <main>
 
-  <!-- PAGE: FORM -->
-  <div class="page active" id="page-form">
-    <div class="section-title">ยื่นใบลา</div>
-    <div class="section-sub">กรอกข้อมูลให้ครบถ้วน ระบบจะแจ้งผู้มีอำนาจอนุมัติอัตโนมัติ</div>
-    <div class="card">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>ชื่อ-นามสกุล *</label>
-          <input type="text" id="f_name" placeholder="เช่น สมชาย ใจดี">
-        </div>
-        <div class="form-group">
-          <label>แผนก *</label>
-          <input type="text" id="f_dept" placeholder="เช่น บัญชี, IT, HR">
-        </div>
-        <div class="form-group">
-          <label>ประเภทการลา *</label>
-          <select id="f_type">
-            <option value="">-- เลือกประเภท --</option>
-            <option value="sick">ลาป่วย</option>
-            <option value="vacation">ลาพักร้อน</option>
-            <option value="personal">ลากิจ</option>
-            <option value="maternity">ลาคลอด</option>
-            <option value="ordain">ลาบวช</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>จำนวนวัน</label>
-          <input type="number" id="f_days" min="1" max="90" placeholder="1" readonly style="background:var(--gray-50)">
-        </div>
-        <div class="form-group">
-          <label>วันที่เริ่มลา *</label>
-          <input type="date" id="f_start" oninput="calcDays()">
-        </div>
-        <div class="form-group">
-          <label>วันที่สุดท้าย *</label>
-          <input type="date" id="f_end" oninput="calcDays()">
-        </div>
-        <div class="form-group full">
-          <label>เหตุผลการลา *</label>
-          <textarea id="f_reason" placeholder="ระบุเหตุผลการลา..."></textarea>
-        </div>
-        <div class="form-group full">
-          <label>ผู้ติดต่อสำรอง (ชื่อ + เบอร์)</label>
-          <input type="text" id="f_contact" placeholder="เช่น วันดี 081-234-5678">
-        </div>
+<!-- PAGE: FORM -->
+<div class="page active" id="page-form">
+  <div class="section-title">ยื่นใบลา</div>
+  <div class="section-sub">กรอกข้อมูลให้ครบถ้วน ระบบจะแจ้งผู้มีอำนาจอนุมัติอัตโนมัติ</div>
+  <div class="card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>ชื่อ-นามสกุล *</label>
+        <input type="text" id="f_name" placeholder="เช่น สมชาย ใจดี">
       </div>
-      <div style="margin-top:20px; display:flex; justify-content:flex-end;">
-        <button class="btn btn-primary" id="submitBtn" onclick="submitLeave()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-          ส่งใบลา
-        </button>
+      <div class="form-group">
+        <label>แผนก *</label>
+        <input type="text" id="f_dept" placeholder="เช่น บัญชี, IT, HR">
       </div>
-    </div>
-  </div>
-
-  <!-- PAGE: LIST -->
-  <div class="page" id="page-list">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-      <div class="section-title">รายการลาทั้งหมด</div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input type="text" id="searchBox" placeholder="🔍 ค้นหาชื่อ..." style="width:180px;font-size:13px" oninput="filterList()">
-        <select id="filterStatus" style="font-size:13px;padding:8px 10px" onchange="filterList()">
-          <option value="">ทุกสถานะ</option>
-          <option value="pending">รออนุมัติ</option>
-          <option value="approved">อนุมัติแล้ว</option>
-          <option value="rejected">ไม่อนุมัติ</option>
+      <div class="form-group">
+        <label>อีเมลพนักงาน (รับแจ้งผล)</label>
+        <input type="email" id="f_email" placeholder="example@company.com">
+      </div>
+      <div class="form-group">
+        <label>ประเภทการลา *</label>
+        <select id="f_type">
+          <option value="">-- เลือกประเภท --</option>
+          <option value="sick">ลาป่วย</option>
+          <option value="vacation">ลาพักร้อน</option>
+          <option value="personal">ลากิจ</option>
+          <option value="maternity">ลาคลอด</option>
+          <option value="ordain">ลาบวช</option>
         </select>
       </div>
+      <div class="form-group">
+        <label>วันที่เริ่มลา *</label>
+        <input type="date" id="f_start" oninput="calcDays()">
+      </div>
+      <div class="form-group">
+        <label>วันที่สุดท้าย *</label>
+        <input type="date" id="f_end" oninput="calcDays()">
+      </div>
+      <div class="form-group">
+        <label>จำนวนวัน</label>
+        <input type="number" id="f_days" min="1" readonly style="background:var(--gray-50)">
+      </div>
+      <div class="form-group">
+        <label>ผู้ติดต่อสำรอง</label>
+        <input type="text" id="f_contact" placeholder="ชื่อ + เบอร์โทร">
+      </div>
+      <div class="form-group full">
+        <label>เหตุผลการลา *</label>
+        <textarea id="f_reason" placeholder="ระบุเหตุผลการลา..."></textarea>
+      </div>
     </div>
-    <div class="section-sub">อัปเดต real-time — ทุกคนเห็นข้อมูลตรงกัน</div>
-    <div class="stats-row" id="statsRow">
-      <div class="stat-card"><div class="stat-num" id="st_total">—</div><div class="stat-label">รายการทั้งหมด</div></div>
-      <div class="stat-card"><div class="stat-num" style="color:var(--warn)" id="st_pending">—</div><div class="stat-label">รออนุมัติ</div></div>
-      <div class="stat-card"><div class="stat-num" style="color:var(--success)" id="st_approved">—</div><div class="stat-label">อนุมัติแล้ว</div></div>
+    <div style="margin-top:20px;display:flex;justify-content:flex-end;">
+      <button class="btn btn-primary" id="submitBtn" onclick="submitLeave()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        ส่งใบลา
+      </button>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>ชื่อ-นามสกุล</th>
-            <th>แผนก</th>
-            <th>ประเภท</th>
-            <th>วันที่</th>
-            <th>จำนวน</th>
-            <th>สถานะ</th>
-            <th>วันที่ยื่น</th>
-          </tr>
-        </thead>
-        <tbody id="listBody">
-          <tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr>
-        </tbody>
-      </table>
+  </div>
+</div>
+
+<!-- PAGE: LIST -->
+<div class="page" id="page-list">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+    <div class="section-title">รายการลาทั้งหมด</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input type="text" id="searchBox" placeholder="🔍 ค้นหาชื่อ..." style="width:160px;font-size:13px" oninput="filterList()">
+      <select id="filterStatus" style="font-size:13px;padding:8px 10px" onchange="filterList()">
+        <option value="">ทุกสถานะ</option>
+        <option value="pending">รออนุมัติ</option>
+        <option value="approved">อนุมัติแล้ว</option>
+        <option value="rejected">ไม่อนุมัติ</option>
+      </select>
     </div>
+  </div>
+  <div class="section-sub">อัปเดต real-time ทุก 8 วินาที</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" id="st_total">—</div><div class="stat-label">รายการทั้งหมด</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--warn)" id="st_pending">—</div><div class="stat-label">รออนุมัติ</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--success)" id="st_approved">—</div><div class="stat-label">อนุมัติแล้ว</div></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ชื่อ-นามสกุล</th><th>แผนก</th><th>ประเภท</th><th>วันที่</th><th>จำนวน</th><th>สถานะ</th><th>วันที่ยื่น</th></tr></thead>
+      <tbody id="listBody"><tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE: CALENDAR -->
+<div class="page" id="page-calendar">
+  <div class="cal-header">
+    <div>
+      <div class="section-title">ปฏิทินการลา</div>
+      <div class="section-sub" style="margin-bottom:0">แสดงเฉพาะที่อนุมัติแล้ว</div>
+    </div>
+    <div class="cal-nav">
+      <button onclick="prevMonth()">‹</button>
+      <span class="cal-month" id="calTitle">—</span>
+      <button onclick="nextMonth()">›</button>
+    </div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="cal-grid" id="calGrid">
+      <div class="cal-day-name">อา</div><div class="cal-day-name">จ</div><div class="cal-day-name">อ</div>
+      <div class="cal-day-name">พ</div><div class="cal-day-name">พฤ</div><div class="cal-day-name">ศ</div><div class="cal-day-name">ส</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+    <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#DBEAFE;display:inline-block"></span>ลาป่วย</span>
+    <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#D1FAE5;display:inline-block"></span>ลาพักร้อน</span>
+    <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#EDE9FE;display:inline-block"></span>ลากิจ</span>
+  </div>
+</div>
+
+<!-- PAGE: ADMIN -->
+<div class="page" id="page-admin">
+  <div class="section-title">อนุมัติใบลา</div>
+  <div class="section-sub">แสดงเฉพาะรายการที่รออนุมัติ</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ชื่อ-นามสกุล</th><th>แผนก</th><th>ประเภท</th><th>วันที่</th><th>จำนวน</th><th>เหตุผล</th><th>จัดการ</th></tr></thead>
+      <tbody id="adminBody"><tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE: SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="section-title">⚙️ ตั้งค่าระบบ</div>
+  <div class="section-sub">ตั้งค่าได้ทันที ไม่ต้องแก้ code</div>
+
+  <!-- LINE Notify -->
+  <div class="settings-section">
+    <h3>🔔 LINE Notify Token</h3>
+    <div class="desc">แจ้งเตือนผู้บริหารทาง LINE เมื่อมีพนักงานยื่นลาใหม่</div>
+    <div class="info-box">
+      <strong>วิธีสร้าง Token ฟรี:</strong><br>
+      1. ไปที่ <a href="https://notify-bot.line.me/th/" target="_blank">notify-bot.line.me</a> → เข้าสู่ระบบด้วย LINE<br>
+      2. กด <strong>"Generate token"</strong> → ตั้งชื่อ → เลือก <strong>กลุ่ม LINE ผู้บริหาร</strong> (หรือ 1:1 กับตัวเอง)<br>
+      3. กด Generate → คัดลอก token มาวางด้านล่าง<br>
+      4. เพิ่ม <strong>LINE Notify</strong> เป็นเพื่อนในกลุ่ม LINE ที่เลือกด้วย
+    </div>
+    <div class="form-group" style="margin-bottom:12px">
+      <label>LINE Notify Token</label>
+      <input type="text" id="s_lineToken" placeholder="วาง token ที่นี่">
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="saveSetting('lineToken','s_lineToken','LINE Notify บันทึกแล้ว ✅')">บันทึก</button>
   </div>
 
-  <!-- PAGE: CALENDAR -->
-  <div class="page" id="page-calendar">
-    <div class="cal-header">
-      <div>
-        <div class="section-title">ปฏิทินการลา</div>
-        <div class="section-sub" style="margin-bottom:0">แสดงเฉพาะที่อนุมัติแล้ว</div>
-      </div>
-      <div class="cal-nav">
-        <button onclick="prevMonth()">‹</button>
-        <span class="cal-month" id="calTitle">—</span>
-        <button onclick="nextMonth()">›</button>
-      </div>
+  <!-- Admin Password -->
+  <div class="settings-section">
+    <h3>🔐 รหัสผ่านหน้าอนุมัติ</h3>
+    <div class="desc">ล็อกหน้าอนุมัติและตั้งค่า ไม่ให้พนักงานทั่วไปเข้าได้</div>
+    <div class="form-group" style="margin-bottom:8px">
+      <label>รหัสผ่านใหม่</label>
+      <input type="password" id="s_pw" placeholder="ตั้งรหัสผ่าน">
     </div>
-    <div class="card" style="padding:0;overflow:hidden">
-      <div class="cal-grid" id="calGrid">
-        <div class="cal-day-name">อา</div>
-        <div class="cal-day-name">จ</div>
-        <div class="cal-day-name">อ</div>
-        <div class="cal-day-name">พ</div>
-        <div class="cal-day-name">พฤ</div>
-        <div class="cal-day-name">ศ</div>
-        <div class="cal-day-name">ส</div>
-      </div>
+    <div class="form-group" style="margin-bottom:12px">
+      <label>ยืนยันรหัสผ่าน</label>
+      <input type="password" id="s_pw2" placeholder="พิมพ์อีกครั้ง">
     </div>
-    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-      <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#DBEAFE;display:inline-block"></span>ลาป่วย</span>
-      <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#D1FAE5;display:inline-block"></span>ลาพักร้อน</span>
-      <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#EDE9FE;display:inline-block"></span>ลากิจ</span>
-      <span style="font-size:12px;display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:3px;background:#FEE2E2;display:inline-block"></span>ลาอื่นๆ</span>
-    </div>
+    <button class="btn btn-primary btn-sm" onclick="savePassword()">บันทึกรหัสผ่าน</button>
+    <span style="font-size:12px;color:var(--gray-400);margin-left:10px" id="pwStatus"></span>
   </div>
 
-  <!-- PAGE: ADMIN -->
-  <div class="page" id="page-admin">
-    <div class="section-title">อนุมัติใบลา</div>
-    <div class="section-sub">แสดงเฉพาะรายการที่รออนุมัติ</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>ชื่อ-นามสกุล</th>
-            <th>แผนก</th>
-            <th>ประเภท</th>
-            <th>วันที่</th>
-            <th>จำนวน</th>
-            <th>เหตุผล</th>
-            <th>จัดการ</th>
-          </tr>
-        </thead>
-        <tbody id="adminBody">
-          <tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">กำลังโหลด...</td></tr>
-        </tbody>
-      </table>
+  <!-- EmailJS -->
+  <div class="settings-section">
+    <h3>📧 แจ้งอีเมลพนักงาน (EmailJS)</h3>
+    <div class="desc">ส่งอีเมลแจ้งพนักงานอัตโนมัติเมื่ออนุมัติหรือปฏิเสธ — ฟรี 200 อีเมล/เดือน</div>
+    <div class="info-box">
+      <strong>วิธีตั้งค่า EmailJS ฟรี:</strong><br>
+      1. ไปที่ <a href="https://www.emailjs.com/" target="_blank">emailjs.com</a> → Sign up ฟรี<br>
+      2. Add New Service → เลือก <strong>Gmail</strong> → เชื่อมบัญชี Gmail → จด <strong>Service ID</strong><br>
+      3. Email Templates → Create New Template → ตั้งค่า Subject/Body ตามชอบ → จด <strong>Template ID</strong><br>
+      &nbsp;&nbsp;&nbsp;(ใช้ variable: <code>{{to_email}}</code> <code>{{name}}</code> <code>{{status}}</code> <code>{{leave_type}}</code> <code>{{start}}</code> <code>{{end}}</code>)<br>
+      4. Account → จด <strong>Public Key</strong><br>
+      5. นำทั้ง 3 อย่างมากรอกด้านล่าง
     </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Service ID</label>
+        <input type="text" id="s_ejService" placeholder="service_xxxxxxx">
+      </div>
+      <div class="form-group">
+        <label>Template ID</label>
+        <input type="text" id="s_ejTemplate" placeholder="template_xxxxxxx">
+      </div>
+      <div class="form-group full">
+        <label>Public Key</label>
+        <input type="text" id="s_ejKey" placeholder="Public Key จาก EmailJS Account">
+      </div>
+    </div>
+    <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="saveEmailJS()">บันทึก EmailJS</button>
   </div>
+
+  <div style="text-align:right;margin-top:8px">
+    <button class="btn btn-secondary btn-sm" onclick="loadSettings()">🔄 โหลดค่าที่บันทึกไว้</button>
+  </div>
+</div>
 
 </main>
-
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 // ========== CONFIG ==========
 const DB_URL = 'https://day-off-63954-default-rtdb.asia-southeast1.firebasedatabase.app';
-const COMPANY = 'ระบบลางาน';
 let allLeaves = [];
+let adminUnlocked = false;
+let pendingPage = '';
 
-document.getElementById('setupModal').style.display = 'none';
-document.getElementById('navBrand').textContent = COMPANY;
+// load settings from localStorage
+function getSetting(k){ return localStorage.getItem('ls_'+k) || ''; }
+function setSetting(k,v){ localStorage.setItem('ls_'+k, v); }
+
+document.getElementById('navBrand').textContent = getSetting('company') || 'ระบบลางาน';
 init();
 
+// ========== FIREBASE ==========
+async function fbGet(p){ const r=await fetch(`${DB_URL}/${p}.json`); return r.json(); }
+async function fbPush(p,d){ const r=await fetch(`${DB_URL}/${p}.json`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}); return r.json(); }
+async function fbUpdate(p,d){ await fetch(`${DB_URL}/${p}.json`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}); }
 
+// ========== INIT ==========
+function init(){ loadLeaves(); setInterval(loadLeaves,8000); renderCalendar(); }
 
-// ========== FIREBASE REST ==========
-async function fbGet(path) {
-  const r = await fetch(`${DB_URL}/${path}.json`);
-  return await r.json();
-}
-async function fbPush(path, data) {
-  const r = await fetch(`${DB_URL}/${path}.json`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  return await r.json();
-}
-async function fbUpdate(path, data) {
-  await fetch(`${DB_URL}/${path}.json`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-}
-
-// ========== INIT (poll every 8s) ==========
-function init() {
-  loadLeaves();
-  setInterval(loadLeaves, 8000);
-  renderCalendar();
-}
-
-async function loadLeaves() {
-  if (!DB_URL) return;
-  try {
+async function loadLeaves(){
+  try{
     const data = await fbGet('leaves');
     allLeaves = [];
-    if (data) {
-      for (const [id, val] of Object.entries(data)) {
-        allLeaves.push({ id, ...val });
-      }
-      allLeaves.sort((a, b) => b.createdAt - a.createdAt);
-    }
+    if(data){ for(const[id,val] of Object.entries(data)) allLeaves.push({id,...val}); }
+    allLeaves.sort((a,b)=>b.createdAt-a.createdAt);
     renderList(allLeaves);
-    renderAdmin(allLeaves.filter(l => l.status === 'pending'));
+    renderAdmin(allLeaves.filter(l=>l.status==='pending'));
     renderCalendar();
     updateStats();
-  } catch(e) {
-    console.error(e);
-  }
+  }catch(e){ console.error(e); }
 }
 
 // ========== FORM ==========
-function calcDays() {
-  const s = document.getElementById('f_start').value;
-  const e = document.getElementById('f_end').value;
-  if (s && e) {
-    const diff = Math.round((new Date(e) - new Date(s)) / 86400000) + 1;
-    document.getElementById('f_days').value = diff > 0 ? diff : 1;
-  }
+function calcDays(){
+  const s=document.getElementById('f_start').value, e=document.getElementById('f_end').value;
+  if(s&&e){ const d=Math.round((new Date(e)-new Date(s))/86400000)+1; document.getElementById('f_days').value=d>0?d:1; }
 }
 
-async function submitLeave() {
-  const name = document.getElementById('f_name').value.trim();
-  const dept = document.getElementById('f_dept').value.trim();
-  const type = document.getElementById('f_type').value;
-  const start = document.getElementById('f_start').value;
-  const end = document.getElementById('f_end').value;
-  const reason = document.getElementById('f_reason').value.trim();
-  const contact = document.getElementById('f_contact').value.trim();
-
-  if (!name || !dept || !type || !start || !end || !reason) {
-    showToast('กรุณากรอกข้อมูลให้ครบทุกช่องที่มี *', 'error'); return;
-  }
-  if (new Date(end) < new Date(start)) {
-    showToast('วันที่สุดท้ายต้องไม่น้อยกว่าวันเริ่มลา', 'error'); return;
-  }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = 'กำลังส่ง...';
-
-  const days = parseInt(document.getElementById('f_days').value) || 1;
-  const leave = { name, dept, type, start, end, days, reason, contact, status: 'pending', createdAt: Date.now() };
-
-  try {
-    await fbPush('leaves', leave);
-    showToast('ยื่นใบลาสำเร็จ ✅', 'success');
-    ['f_name','f_dept','f_reason','f_contact','f_start','f_end','f_days'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('f_type').value = '';
+async function submitLeave(){
+  const name=document.getElementById('f_name').value.trim();
+  const dept=document.getElementById('f_dept').value.trim();
+  const email=document.getElementById('f_email').value.trim();
+  const type=document.getElementById('f_type').value;
+  const start=document.getElementById('f_start').value;
+  const end=document.getElementById('f_end').value;
+  const reason=document.getElementById('f_reason').value.trim();
+  const contact=document.getElementById('f_contact').value.trim();
+  if(!name||!dept||!type||!start||!end||!reason){ showToast('กรุณากรอกข้อมูลให้ครบทุกช่องที่มี *','error'); return; }
+  if(new Date(end)<new Date(start)){ showToast('วันที่สุดท้ายต้องไม่น้อยกว่าวันเริ่มลา','error'); return; }
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='กำลังส่ง...';
+  const days=parseInt(document.getElementById('f_days').value)||1;
+  const leave={name,dept,email,type,start,end,days,reason,contact,status:'pending',createdAt:Date.now()};
+  try{
+    await fbPush('leaves',leave);
+    showToast('ยื่นใบลาสำเร็จ ✅','success');
+    sendLineNotify(leave);
+    ['f_name','f_dept','f_email','f_reason','f_contact','f_start','f_end','f_days'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('f_type').value='';
     loadLeaves();
-  } catch(e) {
-    showToast('เกิดข้อผิดพลาด กรุณาตรวจสอบ Firebase URL', 'error');
-  }
-  btn.disabled = false;
-  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> ส่งใบลา';
+  }catch(e){ showToast('เกิดข้อผิดพลาด กรุณาตรวจสอบการเชื่อมต่อ','error'); }
+  btn.disabled=false;
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> ส่งใบลา';
+}
+
+// ========== LINE NOTIFY ==========
+async function sendLineNotify(leave){
+  const token=getSetting('lineToken');
+  if(!token) return;
+  const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
+  const msg=`\n🔔 มีใบลาใหม่!\n👤 ${leave.name} (${leave.dept})\n📋 ${typeLabel[leave.type]||leave.type}\n📅 ${formatDate(leave.start)}${leave.start!==leave.end?' – '+formatDate(leave.end):''} (${leave.days} วัน)\n📝 ${leave.reason}`;
+  try{
+    await fetch('https://notify-api.line.me/api/notify',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+token,'Content-Type':'application/x-www-form-urlencoded'},
+      body:'message='+encodeURIComponent(msg)
+    });
+  }catch(e){ console.log('LINE Notify error',e); }
+}
+
+// ========== EMAILJS ==========
+async function sendEmailNotify(leave, status){
+  const svc=getSetting('ejService'), tpl=getSetting('ejTemplate'), key=getSetting('ejKey');
+  if(!svc||!tpl||!key||!leave.email) return;
+  const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
+  try{
+    emailjs.init(key);
+    await emailjs.send(svc, tpl, {
+      to_email: leave.email,
+      name: leave.name,
+      status: status==='approved'?'✅ อนุมัติแล้ว':'❌ ไม่อนุมัติ',
+      leave_type: typeLabel[leave.type]||leave.type,
+      start: formatDate(leave.start),
+      end: formatDate(leave.end),
+      days: leave.days
+    });
+  }catch(e){ console.log('EmailJS error',e); }
 }
 
 // ========== LIST ==========
-const typeLabel = { sick:'ลาป่วย', vacation:'ลาพักร้อน', personal:'ลากิจ', maternity:'ลาคลอด', ordain:'ลาบวช' };
-const statusBadge = {
-  pending: '<span class="badge badge-pending">⏳ รออนุมัติ</span>',
-  approved: '<span class="badge badge-approved">✅ อนุมัติแล้ว</span>',
-  rejected: '<span class="badge badge-rejected">❌ ไม่อนุมัติ</span>'
+const typeLabel={sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
+const statusBadge={
+  pending:'<span class="badge badge-pending">⏳ รออนุมัติ</span>',
+  approved:'<span class="badge badge-approved">✅ อนุมัติแล้ว</span>',
+  rejected:'<span class="badge badge-rejected">❌ ไม่อนุมัติ</span>'
 };
 
-function renderList(leaves) {
-  const tbody = document.getElementById('listBody');
-  if (!leaves.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">ยังไม่มีรายการลา</td></tr>';
-    return;
-  }
-  tbody.innerHTML = leaves.map(l => `
+function renderList(leaves){
+  const tbody=document.getElementById('listBody');
+  if(!leaves.length){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gray-400);padding:32px">ยังไม่มีรายการลา</td></tr>'; return; }
+  tbody.innerHTML=leaves.map(l=>`
     <tr>
       <td><strong>${l.name}</strong></td>
       <td>${l.dept}</td>
-      <td>${typeLabel[l.type] || l.type}</td>
-      <td style="white-space:nowrap">${formatDate(l.start)}${l.start !== l.end ? ' – ' + formatDate(l.end) : ''}</td>
+      <td>${typeLabel[l.type]||l.type}</td>
+      <td style="white-space:nowrap">${formatDate(l.start)}${l.start!==l.end?' – '+formatDate(l.end):''}</td>
       <td style="text-align:center">${l.days} วัน</td>
-      <td>${statusBadge[l.status] || l.status}</td>
+      <td>${statusBadge[l.status]||l.status}</td>
       <td style="color:var(--gray-400);font-size:12px">${formatTs(l.createdAt)}</td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
 }
 
-function filterList() {
-  const q = document.getElementById('searchBox').value.toLowerCase();
-  const st = document.getElementById('filterStatus').value;
-  const filtered = allLeaves.filter(l =>
-    (l.name.toLowerCase().includes(q) || l.dept.toLowerCase().includes(q)) &&
-    (st === '' || l.status === st)
-  );
-  renderList(filtered);
+function filterList(){
+  const q=document.getElementById('searchBox').value.toLowerCase();
+  const st=document.getElementById('filterStatus').value;
+  renderList(allLeaves.filter(l=>(l.name.toLowerCase().includes(q)||l.dept.toLowerCase().includes(q))&&(st===''||l.status===st)));
 }
 
-function updateStats() {
-  document.getElementById('st_total').textContent = allLeaves.length;
-  document.getElementById('st_pending').textContent = allLeaves.filter(l => l.status === 'pending').length;
-  document.getElementById('st_approved').textContent = allLeaves.filter(l => l.status === 'approved').length;
+function updateStats(){
+  document.getElementById('st_total').textContent=allLeaves.length;
+  document.getElementById('st_pending').textContent=allLeaves.filter(l=>l.status==='pending').length;
+  document.getElementById('st_approved').textContent=allLeaves.filter(l=>l.status==='approved').length;
 }
 
 // ========== ADMIN ==========
-function renderAdmin(leaves) {
-  const tbody = document.getElementById('adminBody');
-  if (!leaves.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--gray-500);padding:32px">✅ ไม่มีรายการรออนุมัติ</td></tr>';
-    return;
-  }
-  tbody.innerHTML = leaves.map(l => `
+function renderAdmin(leaves){
+  const tbody=document.getElementById('adminBody');
+  if(!leaves.length){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gray-500);padding:32px">✅ ไม่มีรายการรออนุมัติ</td></tr>'; return; }
+  tbody.innerHTML=leaves.map(l=>`
     <tr>
       <td><strong>${l.name}</strong></td>
       <td>${l.dept}</td>
-      <td>${typeLabel[l.type] || l.type}</td>
-      <td style="white-space:nowrap">${formatDate(l.start)}${l.start !== l.end ? ' – '+formatDate(l.end) : ''}</td>
+      <td>${typeLabel[l.type]||l.type}</td>
+      <td style="white-space:nowrap">${formatDate(l.start)}${l.start!==l.end?' – '+formatDate(l.end):''}</td>
       <td style="text-align:center">${l.days} วัน</td>
-      <td style="max-width:180px;font-size:12px;color:var(--gray-500)">${l.reason}</td>
+      <td style="max-width:160px;font-size:12px;color:var(--gray-500)">${l.reason}</td>
       <td>
         <div style="display:flex;gap:6px">
           <button class="btn btn-sm btn-approve" onclick="setStatus('${l.id}','approved')">✅ อนุมัติ</button>
           <button class="btn btn-sm btn-reject" onclick="setStatus('${l.id}','rejected')">❌ ไม่อนุมัติ</button>
         </div>
       </td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
 }
 
-async function setStatus(id, status) {
-  await fbUpdate(`leaves/${id}`, { status });
-  showToast(status === 'approved' ? 'อนุมัติเรียบร้อย ✅' : 'ปฏิเสธใบลาแล้ว', status === 'approved' ? 'success' : 'error');
+async function setStatus(id, status){
+  await fbUpdate(`leaves/${id}`,{status});
+  const leave=allLeaves.find(l=>l.id===id);
+  if(leave) sendEmailNotify(leave, status);
+  showToast(status==='approved'?'อนุมัติเรียบร้อย ✅':'ปฏิเสธใบลาแล้ว', status==='approved'?'success':'error');
   loadLeaves();
 }
 
+// ========== LOCK / ADMIN AUTH ==========
+function requireAdmin(page, e){
+  const pw=getSetting('adminPw');
+  if(!pw){ showPage(page,e); return; }
+  if(adminUnlocked){ showPage(page,e); return; }
+  pendingPage=page;
+  document.getElementById('pwInput').value='';
+  document.getElementById('pwError').style.display='none';
+  document.getElementById('lockScreen').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('pwInput').focus(),100);
+}
+
+function checkPw(){
+  const entered=document.getElementById('pwInput').value;
+  if(entered===getSetting('adminPw')){
+    adminUnlocked=true;
+    document.getElementById('lockScreen').classList.add('hidden');
+    document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+    document.getElementById('page-'+pendingPage).classList.add('active');
+    if(pendingPage==='settings') loadSettings();
+  } else {
+    document.getElementById('pwError').style.display='block';
+    document.getElementById('pwInput').value='';
+    document.getElementById('pwInput').focus();
+  }
+}
+
+function cancelAdmin(){
+  document.getElementById('lockScreen').classList.add('hidden');
+}
+
+// ========== SETTINGS ==========
+function loadSettings(){
+  document.getElementById('s_lineToken').value=getSetting('lineToken');
+  document.getElementById('s_ejService').value=getSetting('ejService');
+  document.getElementById('s_ejTemplate').value=getSetting('ejTemplate');
+  document.getElementById('s_ejKey').value=getSetting('ejKey');
+}
+
+function saveSetting(key, inputId, msg){
+  setSetting(key, document.getElementById(inputId).value.trim());
+  showToast(msg,'success');
+}
+
+function savePassword(){
+  const p1=document.getElementById('s_pw').value;
+  const p2=document.getElementById('s_pw2').value;
+  if(!p1){ showToast('กรุณาใส่รหัสผ่าน','error'); return; }
+  if(p1!==p2){ showToast('รหัสผ่านไม่ตรงกัน','error'); return; }
+  setSetting('adminPw',p1);
+  document.getElementById('s_pw').value='';
+  document.getElementById('s_pw2').value='';
+  showToast('บันทึกรหัสผ่านแล้ว 🔐','success');
+}
+
+function saveEmailJS(){
+  setSetting('ejService', document.getElementById('s_ejService').value.trim());
+  setSetting('ejTemplate', document.getElementById('s_ejTemplate').value.trim());
+  setSetting('ejKey', document.getElementById('s_ejKey').value.trim());
+  showToast('บันทึก EmailJS แล้ว ✅','success');
+}
+
 // ========== CALENDAR ==========
-let calYear = new Date().getFullYear();
-let calMonth = new Date().getMonth();
-const thMonths = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+const thMonths=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
 
-function renderCalendar() {
-  document.getElementById('calTitle').textContent = `${thMonths[calMonth]} ${calYear + 543}`;
-  const grid = document.getElementById('calGrid');
-  const dayNames = ['อา','จ','อ','พ','พฤ','ศ','ส'].map(d => `<div class="cal-day-name">${d}</div>`).join('');
-  const first = new Date(calYear, calMonth, 1).getDay();
-  const lastDate = new Date(calYear, calMonth + 1, 0).getDate();
-  const today = new Date();
-
-  // collect approved leaves for this month
-  const approvedLeaves = allLeaves.filter(l => l.status === 'approved');
-  const dayLeaves = {};
-  approvedLeaves.forEach(l => {
-    let cur = new Date(l.start);
-    const endD = new Date(l.end);
-    while (cur <= endD) {
-      if (cur.getFullYear() === calYear && cur.getMonth() === calMonth) {
-        const key = cur.getDate();
-        if (!dayLeaves[key]) dayLeaves[key] = [];
-        dayLeaves[key].push(l);
+function renderCalendar(){
+  document.getElementById('calTitle').textContent=`${thMonths[calMonth]} ${calYear+543}`;
+  const grid=document.getElementById('calGrid');
+  const dayNames=['อา','จ','อ','พ','พฤ','ศ','ส'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');
+  const first=new Date(calYear,calMonth,1).getDay();
+  const lastDate=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();
+  const dayLeaves={};
+  allLeaves.filter(l=>l.status==='approved').forEach(l=>{
+    let cur=new Date(l.start); const endD=new Date(l.end);
+    while(cur<=endD){
+      if(cur.getFullYear()===calYear&&cur.getMonth()===calMonth){
+        const k=cur.getDate(); if(!dayLeaves[k]) dayLeaves[k]=[];
+        dayLeaves[k].push(l);
       }
-      cur.setDate(cur.getDate() + 1);
+      cur.setDate(cur.getDate()+1);
     }
   });
-
-  let cells = dayNames;
-  // previous month filler
-  const prevLast = new Date(calYear, calMonth, 0).getDate();
-  for (let i = first - 1; i >= 0; i--) {
-    cells += `<div class="cal-cell other-month"><div class="cal-date" style="color:var(--gray-400)">${prevLast - i}</div></div>`;
+  let cells=dayNames;
+  const prevLast=new Date(calYear,calMonth,0).getDate();
+  for(let i=first-1;i>=0;i--) cells+=`<div class="cal-cell other-month"><div class="cal-date" style="color:var(--gray-400)">${prevLast-i}</div></div>`;
+  for(let d=1;d<=lastDate;d++){
+    const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
+    const lv=dayLeaves[d]||[];
+    const tags=lv.slice(0,3).map(l=>`<div class="cal-leave-tag ${l.type==='sick'?'sick':l.type==='personal'?'personal':l.type==='vacation'?'vacation':''}" title="${l.name}">${l.name.split(' ')[0]}</div>`).join('');
+    const more=lv.length>3?`<div style="font-size:10px;color:var(--gray-400)">+${lv.length-3}</div>`:'';
+    cells+=`<div class="cal-cell${isToday?' today':''}"><div class="cal-date">${d}</div>${tags}${more}</div>`;
   }
-  for (let d = 1; d <= lastDate; d++) {
-    const isToday = today.getFullYear() === calYear && today.getMonth() === calMonth && today.getDate() === d;
-    const leaves = dayLeaves[d] || [];
-    const tags = leaves.slice(0, 3).map(l => {
-      const cls = l.type === 'sick' ? 'sick' : l.type === 'personal' ? 'personal' : l.type === 'vacation' ? 'vacation' : '';
-      return `<div class="cal-leave-tag ${cls}" title="${l.name}">${l.name.split(' ')[0]}</div>`;
-    }).join('');
-    const more = leaves.length > 3 ? `<div style="font-size:10px;color:var(--gray-400)">+${leaves.length - 3} อื่นๆ</div>` : '';
-    cells += `<div class="cal-cell${isToday ? ' today' : ''}"><div class="cal-date">${d}</div>${tags}${more}</div>`;
-  }
-  // fill remainder
-  const total = first + lastDate;
-  const remain = total % 7 === 0 ? 0 : 7 - (total % 7);
-  for (let i = 1; i <= remain; i++) {
-    cells += `<div class="cal-cell other-month"><div class="cal-date" style="color:var(--gray-400)">${i}</div></div>`;
-  }
-  grid.innerHTML = cells;
+  const remain=(first+lastDate)%7===0?0:7-(first+lastDate)%7;
+  for(let i=1;i<=remain;i++) cells+=`<div class="cal-cell other-month"><div class="cal-date" style="color:var(--gray-400)">${i}</div></div>`;
+  grid.innerHTML=cells;
 }
 
-function prevMonth() {
-  if (calMonth === 0) { calMonth = 11; calYear--; } else calMonth--;
-  renderCalendar();
-}
-function nextMonth() {
-  if (calMonth === 11) { calMonth = 0; calYear++; } else calMonth++;
-  renderCalendar();
-}
+function prevMonth(){ if(calMonth===0){calMonth=11;calYear--;}else calMonth--; renderCalendar(); }
+function nextMonth(){ if(calMonth===11){calMonth=0;calYear++;}else calMonth++; renderCalendar(); }
 
 // ========== NAV ==========
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
-  event.target.classList.add('active');
-  if (p === 'calendar') renderCalendar();
+function showPage(p, e){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  if(e&&e.target) e.target.classList.add('active');
+  if(p==='calendar') renderCalendar();
+  if(p==='settings') loadSettings();
 }
 
 // ========== HELPERS ==========
-function formatDate(d) {
-  if (!d) return '';
-  const [y, m, day] = d.split('-');
-  return `${parseInt(day)} ${['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'][parseInt(m)]} ${parseInt(y) + 543}`;
+function formatDate(d){
+  if(!d)return'';
+  const[y,m,day]=d.split('-');
+  return`${parseInt(day)} ${['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'][parseInt(m)]} ${parseInt(y)+543}`;
 }
-function formatTs(ts) {
-  if (!ts) return '';
-  const d = new Date(ts);
-  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+function formatTs(ts){
+  if(!ts)return'';
+  const d=new Date(ts);
+  return`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
-
-function showToast(msg, type = '') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type} show`;
-  setTimeout(() => t.classList.remove('show'), 3000);
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className=`toast ${type} show`;
+  setTimeout(()=>t.classList.remove('show'),3000);
 }
 </script>
 </body>
