@@ -264,9 +264,8 @@ tr:hover td{background:var(--gray-50);}
   <div class="section-sub">ตั้งค่าได้ทันที ไม่ต้องแก้ code</div>
   <div class="settings-section">
     <h3>📧 อีเมลผู้บริหาร</h3>
-    <div class="desc">รับแจ้งเตือนเมื่อมีใบลาใหม่ และเมื่ออนุมัติแล้ว</div>
-    <div class="form-group" style="margin-bottom:12px"><label>อีเมลผู้บริหาร</label><input type="email" id="s_adminEmail" placeholder="admin@company.com"></div>
-    <button class="btn btn-primary btn-sm" onclick="saveSetting('adminEmail','s_adminEmail','บันทึกอีเมลผู้บริหารแล้ว ✅')">บันทึก</button>
+    <div class="desc">อีเมลที่รับแจ้งเตือนเมื่อมีใบลาใหม่</div>
+    <div class="info-box">ส่งแจ้งเตือนไปที่: <strong>phatara.l@trinitycolegal.com</strong> (ตายตัวในระบบ)</div>
   </div>
   <div class="settings-section">
     <h3>🏢 ชื่อบริษัท (ใช้ในฟอร์มปริ้น)</h3>
@@ -285,10 +284,8 @@ tr:hover td{background:var(--gray-50);}
   </div>
   <div class="settings-section">
     <h3>🔐 รหัสผ่านหน้าอนุมัติ / ลบข้อมูล</h3>
-    <div class="desc">ใช้รหัสนี้ทั้งเข้าหน้าอนุมัติ และยืนยันการลบข้อมูล</div>
-    <div class="form-group" style="margin-bottom:8px"><label>รหัสผ่านใหม่</label><input type="password" id="s_pw" placeholder="ตั้งรหัสผ่าน"></div>
-    <div class="form-group" style="margin-bottom:12px"><label>ยืนยันรหัสผ่าน</label><input type="password" id="s_pw2" placeholder="พิมพ์อีกครั้ง"></div>
-    <button class="btn btn-primary btn-sm" onclick="savePassword()">บันทึกรหัสผ่าน</button>
+    <div class="desc">รหัสผ่านฝังอยู่ในระบบ ติดต่อผู้ดูแลระบบเพื่อเปลี่ยน</div>
+    <div class="info-box">รหัสผ่านถูกกำหนดไว้ในระบบแล้ว ทุกเครื่องใช้รหัสเดียวกัน</div>
   </div>
   <div class="settings-section">
     <h3>📨 EmailJS</h3>
@@ -312,6 +309,8 @@ tr:hover td{background:var(--gray-50);}
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 const DB_URL = 'https://day-off-63954-default-rtdb.asia-southeast1.firebasedatabase.app';
+const ADMIN_EMAIL = 'phatara.l@trinitycolegal.com'; // อีเมลผู้บริหาร (ตายตัว)
+const ADMIN_PW = '136430'; // รหัสผ่านผู้บริหาร (ตายตัว)
 const SITE_URL = 'https://trinityhr.github.io/Trinity-e-Leave-System/';
 const TYPE_LABEL = {sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
 const STATUS_BADGE = {
@@ -331,8 +330,6 @@ function getSetting(k){ return localStorage.getItem('ls_'+k)||''; }
 function setSetting(k,v){ localStorage.setItem('ls_'+k,v); }
 
 document.getElementById('navBrand').textContent = getSetting('company')||'ระบบลางาน';
-// hardcode admin email
-if(!getSetting('adminEmail')) setSetting('adminEmail','phatara.l@trinitycolegal.com');
 
 window.addEventListener('load',()=>{
   loadLeaves();
@@ -343,7 +340,7 @@ window.addEventListener('load',()=>{
   if(!getSetting('ejKey')) setSetting('ejKey','qr4mio3xy2zs86P7s');
   // auto navigate from email link
   if(window.location.hash==='#admin'){
-    const pw=getSetting('adminPw');
+    const pw=ADMIN_PW;
     if(!pw){ showPageDirect('admin'); }
     else {
       pendingPage='admin';
@@ -432,8 +429,7 @@ async function sendEmail(toEmail,params){
   catch(e){ console.log('EmailJS error',e); }
 }
 async function sendAdminEmail(leave){
-  const adminEmail=getSetting('adminEmail'); if(!adminEmail) return;
-  await sendEmail(adminEmail,{
+  await sendEmail(ADMIN_EMAIL,{
     name:'ผู้บริหาร',
     status:`ใบลาใหม่จาก ${leave.name} (${leave.dept})`,
     leave_type:TYPE_LABEL[leave.type]||leave.type,
@@ -508,7 +504,7 @@ function renderAdmin(leaves){
 async function setStatus(id,status){
   await fbUpdate(`leaves/${id}`,{status});
   const leave=allLeaves.find(l=>l.id===id);
-  if(leave && leave.email) sendEmployeeEmail(leave,status); // แจ้งแค่พนักงาน
+  if(leave && leave.email) sendEmployeeEmail(leave,status); // แจ้งแค่พนักงาน ไม่แจ้งผู้บริหาร
   showToast(status==='approved'?'อนุมัติเรียบร้อย ✅':'ปฏิเสธใบลาแล้ว',status==='approved'?'success':'error');
   loadLeaves();
 }
@@ -523,7 +519,7 @@ function askDelete(id, name){
   setTimeout(()=>document.getElementById('deletePwInput').focus(),100);
 }
 async function confirmDelete(){
-  const pw=getSetting('adminPw');
+  const pw=ADMIN_PW;
   const entered=document.getElementById('deletePwInput').value;
   if(!entered){ document.getElementById('deletePwError').style.display='block'; document.getElementById('deletePwError').textContent='กรุณาใส่รหัสผ่าน'; return; }
   if(pw && entered!==pw){ document.getElementById('deletePwError').style.display='block'; document.getElementById('deletePwError').textContent='รหัสผ่านไม่ถูกต้อง'; return; }
@@ -618,7 +614,7 @@ function formatDateFull(d){
 
 // LOCK
 function requireAdmin(page,e){
-  const pw=getSetting('adminPw');
+  const pw=ADMIN_PW;
   if(!pw){ showPage(page,e); return; } // ยังไม่ได้ตั้งรหัส เข้าได้เลย
   // ต้องใส่รหัสทุกครั้ง ไม่ว่าใครเปิด
   pendingPage=page;
@@ -628,7 +624,7 @@ function requireAdmin(page,e){
   setTimeout(()=>document.getElementById('pwInput').focus(),100);
 }
 function checkPw(){
-  if(document.getElementById('pwInput').value===getSetting('adminPw')){
+  if(document.getElementById('pwInput').value===ADMIN_PW){
     adminUnlocked=true;
     document.getElementById('lockScreen').classList.add('hidden');
     document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
@@ -641,7 +637,7 @@ function cancelAdmin(){ document.getElementById('lockScreen').classList.add('hid
 
 // SETTINGS
 function loadSettings(){
-  document.getElementById('s_adminEmail').value=getSetting('adminEmail');
+
   document.getElementById('s_company').value=getSetting('company');
   document.getElementById('s_ejService').value=getSetting('ejService');
   document.getElementById('s_ejTemplate').value=getSetting('ejTemplate');
