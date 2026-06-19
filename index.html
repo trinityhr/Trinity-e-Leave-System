@@ -305,6 +305,16 @@ tr:hover td{background:var(--gray-50);}
     </div>
     <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="saveEmailJS()">บันทึก EmailJS</button>
   </div>
+  <div class="settings-section">
+    <h3>📅 จัดการวันหยุดนักขัตฤกษ์</h3>
+    <div class="desc">วันหยุดที่เพิ่มไว้จะไม่ถูกนับเป็นวันลา — ใช้ร่วมกันทุกเครื่อง (เก็บใน Firebase)</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <input type="date" id="s_holiday_date" style="flex:1">
+      <input type="text" id="s_holiday_name" placeholder="ชื่อวันหยุด เช่น วันชาติ" style="flex:2">
+      <button class="btn btn-primary btn-sm" onclick="addHoliday()">+ เพิ่ม</button>
+    </div>
+    <div id="holidayList" style="max-height:220px;overflow-y:auto"></div>
+  </div>
   <div style="text-align:right;margin-top:8px">
     <button class="btn btn-secondary btn-sm" onclick="loadSettings()">🔄 โหลดค่าที่บันทึกไว้</button>
   </div>
@@ -316,8 +326,9 @@ tr:hover td{background:var(--gray-50);}
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 const DB_URL = 'https://day-off-63954-default-rtdb.asia-southeast1.firebasedatabase.app';
-const ADMIN_EMAIL = 'phatara.l@trinitycolegal.com'; // อีเมลผู้บริหาร (ตายตัว)
-const ADMIN_PW = '136430'; // รหัสผ่านผู้บริหาร (ตายตัว)
+const ADMIN_EMAIL = 'phatara.l@trinitycolegal.com';
+const ADMIN_PW = '136430';
+const COMPANY_NAME = 'บริษัท ทรีนิตี้แอนด์โคลีเกิ้ล จำกัด';
 const SITE_URL = 'https://trinityhr.github.io/Trinity-e-Leave-System/';
 const TYPE_LABEL = {sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
 const STATUS_BADGE = {
@@ -342,6 +353,7 @@ window.addEventListener('load',()=>{
   loadLeaves();
   setInterval(loadLeaves,8000);
   renderCalendar();
+  loadHolidaysFromDB(); // load holidays for calcDays
   if(!getSetting('ejService')) setSetting('ejService','service_0v5k41g');
   if(!getSetting('ejTemplate')) setSetting('ejTemplate','template_rz3u47k');
   if(!getSetting('ejKey')) setSetting('ejKey','qr4mio3xy2zs86P7s');
@@ -358,6 +370,25 @@ window.addEventListener('load',()=>{
     }
   }
 });
+
+// HOLIDAYS
+function getHolidays(){
+  try{ return JSON.parse(localStorage.getItem('ls_holidays')||'[]'); }catch(e){ return []; }
+}
+function saveHolidays(arr){ localStorage.setItem('ls_holidays', JSON.stringify(arr)); }
+function isHoliday(dateStr){
+  return getHolidays().includes(dateStr);
+}
+function countWorkDays(start, end){
+  let count=0, cur=new Date(start+'T00:00:00'), endD=new Date(end+'T00:00:00');
+  while(cur<=endD){
+    const dow=cur.getDay();
+    const ds=cur.toISOString().split('T')[0];
+    if(dow!==0 && dow!==6 && !isHoliday(ds)) count++;
+    cur.setDate(cur.getDate()+1);
+  }
+  return count;
+}
 
 // FIREBASE
 async function fbGet(p){ const r=await fetch(`${DB_URL}/${p}.json`); return r.json(); }
@@ -402,10 +433,9 @@ function calcDays(){
   if(half && s){ document.getElementById('f_end').value=s; }
   const s2=document.getElementById('f_start').value, e2=document.getElementById('f_end').value;
   if(s2&&e2){
-    let d=Math.round((new Date(e2)-new Date(s2))/86400000)+1;
-    if(d<1) d=1;
-    if(half) d=0.5;
-    document.getElementById('f_days').value=d;
+    if(half){ document.getElementById('f_days').value=0.5; return; }
+    const d=countWorkDays(s2,e2);
+    document.getElementById('f_days').value=d>0?d:0;
   }
 }
 function syncEndDate(){
@@ -558,7 +588,7 @@ function cancelDelete(){ document.getElementById('deleteModal').classList.add('h
 function printLeave(id){
   const l=allLeaves.find(x=>x.id===id);
   if(!l) return;
-  const company=getSetting('company')||'บริษัท .............................. จำกัด';
+  const company=COMPANY_NAME;
   const typeChecks={sick:'',vacation:'',personal:'',maternity:'',ordain:''};
   typeChecks[l.type]='✓';
   const used={sick:calcUsed(l.name,'sick'),vacation:calcUsed(l.name,'vacation'),personal:calcUsed(l.name,'personal')};
@@ -669,6 +699,43 @@ function loadSettings(){
   document.getElementById('q_maternity').value=getSetting('quota_maternity')||90;
 }
 function saveSetting(key,inputId,msg){ setSetting(key,document.getElementById(inputId).value.trim()); showToast(msg,'success'); }
+
+// HOLIDAY MANAGEMENT (stored in Firebase for shared access)
+async function loadHolidaysFromDB(){
+  try{
+    const data=await fbGet('holidays');
+    const arr=data?Object.entries(data).map(([id,v])=>({id,...v})):[];
+    arr.sort((a,b)=>a.date.localeCompare(b.date));
+    localStorage.setItem('ls_holidays', JSON.stringify(arr.map(h=>h.date)));
+    return arr;
+  }catch(e){ return []; }
+}
+async function addHoliday(){
+  const date=document.getElementById('s_holiday_date').value;
+  const name=document.getElementById('s_holiday_name').value.trim()||'วันหยุด';
+  if(!date){ showToast('กรุณาเลือกวันที่','error'); return; }
+  await fbPush('holidays',{date,name});
+  document.getElementById('s_holiday_date').value='';
+  document.getElementById('s_holiday_name').value='';
+  showToast('เพิ่มวันหยุดแล้ว ✅','success');
+  renderHolidayList();
+}
+async function deleteHoliday(id){
+  await fbDelete(`holidays/${id}`);
+  showToast('ลบวันหยุดแล้ว','success');
+  renderHolidayList();
+}
+async function renderHolidayList(){
+  const arr=await loadHolidaysFromDB();
+  const el=document.getElementById('holidayList');
+  if(!el) return;
+  if(!arr.length){ el.innerHTML='<div style="color:var(--gray-400);font-size:13px;padding:8px 0">ยังไม่มีวันหยุด</div>'; return; }
+  el.innerHTML=arr.map(h=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100);font-size:13px">
+      <span><strong>${formatDate(h.date)}</strong> — ${h.name}</span>
+      <button class="btn btn-sm btn-delete" onclick="deleteHoliday('${h.id}')">ลบ</button>
+    </div>`).join('');
+}
 function saveCompanySettings(){
   const co=document.getElementById('s_company').value.trim();
   setSetting('company',co);
