@@ -329,6 +329,7 @@ const DB_URL = 'https://day-off-63954-default-rtdb.asia-southeast1.firebasedatab
 const ADMIN_EMAIL = 'phatara.l@trinitycolegal.com';
 const ADMIN_PW = '136430';
 const COMPANY_NAME = 'บริษัท ทรีนิตี้แอนด์โคลีเกิ้ล จำกัด';
+const EMPLOYEE_TEMPLATE_ID = 'template_7o37i9k'; // template แจ้งพนักงาน
 const SITE_URL = 'https://trinityhr.github.io/Trinity-e-Leave-System/';
 const TYPE_LABEL = {sick:'ลาป่วย',vacation:'ลาพักร้อน',personal:'ลากิจ',maternity:'ลาคลอด',ordain:'ลาบวช'};
 const STATUS_BADGE = {
@@ -491,14 +492,21 @@ async function sendAdminEmail(leave){
 }
 async function sendEmployeeEmail(leave,status){
   if(!leave.email) return;
-  await sendEmail(leave.email,{
-    name:leave.name,
-    status:`ผลการพิจารณาใบลา: ${status==='approved'?'อนุมัติแล้ว':'ไม่อนุมัติ'}`,
-    leave_type:TYPE_LABEL[leave.type]||leave.type,
-    start:formatDate(leave.start), end:formatDate(leave.end),
-    days:`${leave.days} วัน`, reason:leave.reason,
-    site_url:`<a href="${SITE_URL}">ดูรายละเอียดในระบบ</a>`
-  });
+  const svc=getSetting('ejService'), key=getSetting('ejKey');
+  if(!svc||!key) return;
+  try{
+    emailjs.init(key);
+    await emailjs.send(svc, EMPLOYEE_TEMPLATE_ID, {
+      to_email: leave.email,
+      name: leave.name,
+      status: `ผลการพิจารณาใบลา: ${status==='approved'?'อนุมัติแล้ว':'ไม่อนุมัติ'}`,
+      leave_type: TYPE_LABEL[leave.type]||leave.type,
+      start: formatDate(leave.start),
+      end: formatDate(leave.end),
+      days: `${leave.days} วัน`,
+      reason: leave.reason
+    });
+  }catch(e){ console.log('EmailJS employee error',e); }
 }
 
 // LIST
